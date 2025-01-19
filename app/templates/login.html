@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/login.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        <div class="form-container">
+            <h2>Login</h2>
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Email">
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password">
+            </div>
+            <button class="btn" onclick="login()">Sign In</button>
+            <p>Don't have an account? <a href="/register">Sign Up</a></p>
+        </div>
+    </div>
+</body>
+
+<script src="{{ url_for('static', filename= 'js/auth/auth.js') }}"></script>
+
+</html>

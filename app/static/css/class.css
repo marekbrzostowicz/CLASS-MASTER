@@ -1,0 +1,278 @@
+body {
+  background-color: #ede7e3;
+  font-family: "Montserrat", sans-serif;
+  margin: 0
+
+}
+
+
+.table-style-display-none {
+  display: none;
+}
+
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#all-content{
+  margin-top: 180px;
+}
+
+.grade-1 {
+  background-color: rgb(234, 150, 150);
+}
+.grade-2 {
+  background-color: rgb(236, 181, 77);
+}
+.grade-3 {
+  background-color: rgb(255, 255, 117);
+}
+.grade-4 {
+  background-color: rgb(168, 233, 168);
+}
+.grade-5 {
+  background-color: rgb(98, 233, 98);
+}
+
+.custom-context-menu {
+  z-index: 1000;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  width: 200px;
+}
+
+.custom-context-menu .context-menu-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.custom-context-menu .context-menu-btn {
+  display: block;
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  text-align: center;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.custom-context-menu .context-menu-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Ogólne style dla menu */
+.custom-weight-menu {
+  background-color: #ffffff; /* Białe tło */
+  border: 1px solid #ccc; /* Szary obramowanie */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtelny cień */
+  border-radius: 4px; /* Zaokrąglone rogi */
+  padding: 10px; /* Odstępy wewnętrzne */
+  position: absolute;
+  z-index: 1000; /* Wyższy z-index, aby menu było na wierzchu */
+  display: none; /* Domyślnie ukryte */
+}
+
+/* Style dla przycisków w menu */
+.custom-weight-menu button {
+  background-color: #f9f9f9; /* Jasne tło */
+  border: none; /* Bez obramowania */
+  padding: 8px 12px; /* Odstępy wewnętrzne */
+  margin: 5px 0; /* Odstępy między przyciskami */
+  width: 100%; /* Rozciągnięcie na całą szerokość menu */
+  text-align: left; /* Wyrównanie tekstu do lewej */
+  cursor: pointer; /* Zmiana kursora na "rękę" */
+  font-size: 14px; /* Rozmiar czcionki */
+}
+
+/* Efekt hover dla przycisków */
+.custom-weight-menu button:hover {
+  background-color: #e6e6e6; /* Ciemniejsze tło na hover */
+}
+
+/* Dodaj animację wyświetlania */
+.custom-weight-menu {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Kluczowe klatki animacji fadeIn */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+.table-container {
+  display: flex;
+  background: greenyellow;
+  justify-content: space-evenly;
+}
+
+table {
+  border-collapse:collapse;
+  font-size: 15px;
+  
+  border-spacing: 50px !important;
+}
+
+table td:first-child {
+  border: none;
+  border-right: 3px solid black;
+  font-size: 15px;
+  font-weight: bold;
+}
+table th:first-child{
+  border: none;
+}
+
+table td {
+  border-bottom: 1px solid black;
+  padding: 10px;
+  text-align: center;
+  
+}
+
+table th {
+  font-size: 20px;
+  /* border-bottom: 3px solid black; */
+  border-left: 3px solid black;
+  border-right: 3px solid black;
+  padding: 5px;
+  
+  
+}
+
+
+#all-tables {
+  background-color: rgb(235, 130, 130);
+}
+
+#table-title{
+  background-color: lightgoldenrodyellow;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 30px;
+  
+}
+
+#students-container{
+  text-align: right;
+  background-color: #d3ffac;
+}
+
+
+
+
+#table-average td  {
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.grade-column{
+  background-color: #93b476;
+}
+
+.grade-column:hover{
+  cursor: pointer;  
+}
+
+table input {
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(78, 214, 37);
+  width: 20px;
+  height: 15px;
+}
+
+
+#grades-button{
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-right: 20px;
+  padding: 20px;
+  color: white;
+  background-color: rgb(219, 89, 89);
+  border: none;
+  border-radius: 15px;
+}
+#grades-button:hover {
+  cursor: pointer;
+  background-color: rgb(139, 58, 58);
+}
+
+
+
+#input-students{
+  color: #040200;
+  position:fixed;
+  top: 15%;
+  left: 35%;
+  width: 500px;
+  height: 500px;
+  background-color: #a7aec2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 25px;
+  padding: 20px;
+  
+}
+#input-students input{
+  
+  font-size: 25px;
+  background-color: rgb(218, 218, 218);
+  width: 300px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  
+}
+
+#desc-2 {
+  margin-top: 0;
+  text-align: justify;
+  font-size: 15px;
+}
+
+#file-input {
+  background-color: #a7aec2 !important;;
+  font-size: 20px !important;
+  color: black;
+}
+
+#add-manual {
+  font-size: 20px;
+  padding-left: 10px ;
+  padding-right: 10px;
+  font-weight: bold;
+  border: none;
+  background-color: #e9e99e;
+  border-radius: 10px;
+  transition: 0.1s ease all;
+}
+#add-manual:hover {
+  cursor: pointer;
+  background-color: #858518;
+  color: white;
+}

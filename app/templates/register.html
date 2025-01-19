@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='/css/register.css') }}"
+    />
+  </head>
+  <body>
+    <div class="register-container">
+      <div class="form-container">
+        <h2>Create Account</h2>
+        <div class="input-group">
+          <input type="email" id="email" placeholder="Email" />
+        </div>
+        <div class="input-group">
+          <input type="text" id="username" placeholder="Username" />
+        </div>
+        <div class="input-group">
+          <input type="password" id="password" placeholder="Password" />
+        </div>
+        <div class="input-group">
+          <input
+            type="password"
+            id="confirm-password"
+            placeholder="Confirm Password"
+          />
+        </div>
+        <button class="btn" onclick="addUser()">Sign Up</button>
+        <p>Already have an account? <a href="/login">Sign In</a></p>
+      </div>
+    </div>
+  </body>
+
+  <script src="{{ url_for('static', filename= 'js/auth/auth.js') }}"></script>
+</html>

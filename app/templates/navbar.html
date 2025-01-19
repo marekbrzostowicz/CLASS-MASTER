@@ -1,0 +1,23 @@
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='/css/navbar.css') }}"
+/>
+<div class="navbar">
+  <h1><i class="fas fa-user-circle user-icon"></i> {{ user.first_name }}</h1>
+  {% if request.path != '/home' %}
+  <a href="/home">
+    <div class="book">
+      <div class="pg pg1">CLASS</div>
+      <div class="pg pg2">MASTER</div>
+    </div>
+  </a>
+  {% else %}
+  <div class="book">
+    <div class="pg pg1">CLASS</div>
+    <div class="pg pg2">MASTER</div>
+  </div>
+  {% endif %}
+  <button onclick="logout()" class="logout">
+    <i class="fas fa-sign-out-alt"></i>&nbsp;LOGOUT
+  </button>
+</div>

@@ -1,0 +1,188 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* === GŁÓWNY KONTENER NA CAŁE OKNO === */
+.container-pdf {
+  margin-top: 180px;
+  display: flex;
+  min-height: calc(100vh - 180px);
+   
+  
+}
+
+/* === LEWA KOLUMNA (INPUTY) === */
+#question-input {
+  position: sticky;
+  background-color: #49536e;
+  color: #ede7e3;
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 30px;
+  gap: 20px;
+  overflow-y: auto;
+  
+}
+
+#question-input p {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+#question-input input[type="text"] {
+  width: 350px;
+  height: 35px;
+  border-radius: 20px;
+  border: none;
+  font-size: 30px;
+  background-color: rgb(235, 235, 235);
+  padding: 5px;
+}
+
+/* Suwak (range) i wartość obok */
+#range-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+#question-input input[type="range"] {
+  width: 350px !important;
+  border-radius: 0;
+  padding: 0;
+  /* color: rgb(25, 55, 55); */
+}
+#range-value {
+  font-size: 40px;
+  width: 30px;
+  text-align: center;
+}
+
+/* Ikona do tworzenia pytań */
+#question-number {
+  font-size: 55px;
+  color: #fceca4;
+  transition: 0.2s;
+  cursor: pointer;
+}
+#question-number:hover {
+  color: #9af68a;
+}
+
+/* Kontener przycisków */
+#buttons-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  margin-top: 30px;
+}
+
+#generate-button {
+  font-size: 15px;
+  padding: 20px; /* Jeśli chcesz inny padding */
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  background-color: #fff5c6;
+}
+#generate-button:hover {
+  background-color: #9af68a;
+}
+
+#reset-button {
+  font-size: 15px;
+  padding: 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  background-color: #f98d8d;
+  color: #2f1a70;
+}
+
+/* === PRAWA SEKCJA (GENEROWANE PYTANIA) === */
+#all-questions {
+  /* Zajmuje resztę szerokości */
+  flex: 1;
+  /* Przewijanie w pionie tylko w tej sekcji */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  background-color: #ede7e3;
+  padding: 20px;
+}
+
+/* Pojedynczy box pytania */
+#question-div {
+  display: flex;
+  flex-direction: column;
+  
+  align-items: center;
+
+  padding: 40px;
+  margin: 10px;
+  width: 700px;
+  flex-shrink: 0;
+  border: 1px solid #ddd;
+  background-color: #efefef;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+}
+
+
+#pdf-div {
+  
+  width: 250px;
+  background-color: #efefef;
+  list-style: none;
+  font-size: 20px;
+  padding: 10px;
+  text-align: right;
+  word-wrap: break-word;
+
+}
+
+a {
+  text-decoration: none; 
+  color: #0a0a0a; 
+  
+}
+
+.fa-file-pdf {
+  color: #ef7676;
+}
+
+li {
+  margin-bottom: 20px;
+  transition: 0.1s;
+}
+
+li:hover{
+  transform: scale(1.04);
+  
+
+}
+
+
+#all-elementsss {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Sprawia, że navbar jest na wierzchu */
+  height: 180px; /* Dopasowane do rzeczywistej wysokości navbar */
+}

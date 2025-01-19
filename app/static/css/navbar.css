@@ -1,0 +1,78 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+    background-color: #353c50;
+    color: #ede7e3;
+}
+
+.logout {
+    border: none;
+    font-size: 17px;
+    border-radius: 20px;
+    font-weight: bold;
+    padding: 15px;
+    background-color: #82c0cc;
+    color: #212529;
+    cursor: pointer;
+    transition: 0.2s ease all;
+}
+
+.logout:hover {
+    background-color: #ede7e3;
+    transform: scale(1.02);
+}
+
+.book {
+    background-color: #fff;
+    width: 150px;
+    height: 100px;
+    border-radius: 20px;
+    perspective: 600px;
+    position: relative;
+}
+
+.book::before {
+    content: '';
+    position: absolute;
+    z-index: 5;
+    width: 50%;
+    height: 100%;
+    right: 50%;
+    background-color: #ffa62b;
+    border-radius: 20px 0 0 20px;
+    transform-origin: center right;
+    transform: rotateY(180deg);
+    transition: 0.7s ease all;
+}
+
+.book:hover::before {
+    transform: rotateY(0deg);
+}
+
+.book .pg {
+    position: absolute;
+    width: 50%;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #292523;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.book .pg.pg1 {
+    background-color: #ede7e3;
+    border-radius: 20px 0 0 20px;
+    left: 0;
+}
+
+.book .pg.pg2 {
+    background-color: #489fb5;
+    right: 0;
+    border-radius: 0 20px 20px 0;
+    color: #ede7e3;
+}

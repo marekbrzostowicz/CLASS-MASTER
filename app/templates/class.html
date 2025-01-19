@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='/css/class.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="all-content">
+      <div id="navbar">{% include "navbar.html" %}</div>
+
+      <div id="all-tables">
+        <div id="table-title">
+          <h1 id="class-title"></h1>
+          <h3 id="student-counter"></h3>
+        </div>
+
+        <div class="table-container">
+          <div id="students-container"></div>
+          <div>
+            <table id="table-average">
+              <tr>
+                <th>AVERAGE</th>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <button id="create-student-btn">DODAJ UCZNIA</button>
+        <!-- gdzies zapisz oceny -->
+        <div id="form-container" style="display: none;">
+          <div id="input-students">
+            
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <div id="grades-column"></div>
+
+      <!-- Przycisk do dodawania kolumny z ocenami -->
+      <button id="add-grades-col-btn">DODAJ KOLUMNE Z OCENAMI</button>
+
+      <hr />
+
+      <input type="text" placeholder="Find student" id="search-student" />
+      <table>
+        <thead>
+          <tr id="table-headers"></tr>
+        </thead>
+        <tbody id="students-data"></tbody>
+      </table>
+      <hr />
+      <button id="color-change">COLOR</button>
+    </div>
+
+
+    <p id="desc-1">You can manually enter the student data, or upload a file in Excel or CSV format from your computer.</p>
+    <p id="desc-2">If you are uploading a file, make sure the first column contains the first name, the second column contains the last name, and the third column contains the email address.</p>
+
+    <script
+      type="module"
+      src="{{ url_for('static', filename='js/classes/main.js') }}"
+    ></script>
+    <script src="{{ url_for('static', filename= 'js/auth/auth.js') }}"></script>
+  </body>
+</html>
