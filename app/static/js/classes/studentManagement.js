@@ -60,24 +60,33 @@ export async function addStudent(classId, firstName, lastName, email) {
 export function createStudentForm() {
   const classId = getClassIdFromUrl();
   const formContainer = document.getElementById("form-container");
-  const p1 = document.getElementById('desc-1')
-  const p2 = document.getElementById('desc-2')
+  const p1 = document.getElementById("desc-1");
+  const p2 = document.getElementById("desc-2");
+
+  // Sprawdzamy, czy jest schowany i ewentualnie pokazujemy
   if (formContainer.style.display === "none") {
-    console.log("XDDDDDDDDDDD");
     formContainer.style.display = "block";
+
+    // Czyścimy poprzednią zawartość
     const inputStudent = document.getElementById("input-students");
-    inputStudent.innerHTML = ''
+    inputStudent.innerHTML = "";
+
+    // Pola do manualnego dodania studenta
     const firstNameInput = document.createElement("input");
-    firstNameInput.placeholder = 'Name'
+    firstNameInput.placeholder = "Name";
+
     const lastNameInput = document.createElement("input");
-    lastNameInput.placeholder = 'Last name'
+    lastNameInput.placeholder = "Last name";
+
     const emailInput = document.createElement("input");
-    emailInput.placeholder = 'Email'
+    emailInput.placeholder = "Email";
+
     const addButton = document.createElement("button");
-    addButton.id = 'add-manual'
-    const icon = document.createElement('p')
-    icon.className = 'fas fa-arrow-right'
-    addButton.appendChild(icon)
+    addButton.id = "add-manual";
+    const icon = document.createElement("p");
+    icon.className = "fas fa-arrow-right";
+    addButton.appendChild(icon);
+
     addButton.onclick = () => {
       addStudent(
         classId,
@@ -86,53 +95,70 @@ export function createStudentForm() {
         emailInput.value
       );
     };
-    const fileInput = document.createElement('input')
-    fileInput.type = 'file'
-    fileInput.id = 'file-input'
-    inputStudent.appendChild(p1)
-    inputStudent.appendChild(p2)
+
+    // --- TU DODAJEMY input[type="file"] i od razu podpinamy event "change" ---
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.id = "file-input";
+
+    fileInput.addEventListener("change", async (event) => {
+      // logika walidacji i wysyłki
+      const allowedTypes = [
+        "text/csv",
+        "application/vnd.ms-excel",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      ];
+      const allowedExtensions = ["csv", "xls", "xlsx"];
+
+      const file = event.target.files[0];
+      if (file) {
+        const fileType = file.type;
+        const fileExtension = file.name.split(".").pop().toLowerCase();
+
+        if (
+          allowedTypes.includes(fileType) &&
+          allowedExtensions.includes(fileExtension)
+        ) {
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append('classId', getClassIdFromUrl())
+          try {
+            const response = await fetch("/api/files", {
+              method: "POST",
+              body: formData,
+              
+            });
+            if (!response.ok) {
+              const errorData = await response.json();
+              throw new Error(errorData.error || "Failed to send file");
+            }
+            const result = await response.json();
+            showStudents(getClassIdFromUrl()) //////
+            console.log("Wysłano plik:", result);
+          } catch (error) {
+            console.error("Error sending file", error.message);
+          }
+        } else {
+          alert("Invalid file type");
+          // resetujemy input, żeby można było wybrać kolejny
+          event.target.value = "";
+        }
+      }
+    });
+
+    // Wstawiamy elementy do kontenera
+    inputStudent.appendChild(p1);
+    inputStudent.appendChild(p2);
     inputStudent.appendChild(firstNameInput);
     inputStudent.appendChild(lastNameInput);
     inputStudent.appendChild(emailInput);
     inputStudent.appendChild(addButton);
-    inputStudent.appendChild(fileInput)
+
+    // Na koniec wstawiamy nasze pole typu file
+    inputStudent.appendChild(fileInput);
   } else {
     formContainer.style.display = "none";
   }
-  // formContainer.innerHTML = "";
-
-  // const inputContainer = document.createElement("div");
-
-  // // inputContainer.style.display === "none";
-  // const firstNameInput = document.createElement("input");
-  // firstNameInput.placeholder = "Name";
-  // firstNameInput.style.marginRight = "10px";
-
-  // const lastNameInput = document.createElement("input");
-  // lastNameInput.placeholder = "Last name";
-  // lastNameInput.style.marginRight = "10px";
-
-  // const emailInput = document.createElement("input");
-  // emailInput.placeholder = "Email";
-  // emailInput.style.marginRight = "10px";
-
-  // const addButton = document.createElement("button");
-  // addButton.textContent = "->";
-  // addButton.onclick = () => {
-  //   addStudent(
-  //     classId,
-  //     firstNameInput.value,
-  //     lastNameInput.value,
-  //     emailInput.value
-  //   );
-  // };
-
-  // inputContainer.appendChild(firstNameInput);
-  // inputContainer.appendChild(lastNameInput);
-  // inputContainer.appendChild(emailInput);
-  // inputContainer.appendChild(addButton);
-
-  // formContainer.appendChild(inputContainer);
 }
 
 export async function showStudents(classId) {

@@ -16,13 +16,11 @@ body {
   overflow: hidden; /* Zapobiegaj przewijaniu */
 }
 
-
-
 .content-wrapper {
   display: flex;
   flex: 1;
   background-color: #f3f2e6;
-  
+
   overflow-y: auto;
 }
 
@@ -33,7 +31,7 @@ body {
   width: 260px;
   background-color: #49536e;
   color: #ede7e3;
-  
+
   padding: 20px;
   height: auto;
   flex-shrink: 0;
@@ -79,7 +77,6 @@ body {
   background-color: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-
 
 h2 {
   margin: 10px;
@@ -202,4 +199,79 @@ input:focus {
   transition: 0.2s;
   color: #d33a3a;
   cursor: pointer;
+}
+
+#delete-confirmation {
+  display: flex;
+  background-color: #a7aec2;
+  border-radius: 20px;
+  position: absolute;
+  top: 45%;
+  left: 40%;
+  width: 450px;
+  height: 130px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#no-confirm,
+#yes-confirm {
+  font-family: "Montserrat", sans-serif;
+  border: none;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: 0.1s;
+}
+
+#no-confirm {
+  background-color: #f18f8f;
+}
+#no-confirm:hover {
+  cursor: pointer;
+  background-color: #652d2d;
+  color: white;
+}
+
+#yes-confirm {
+  background-color: aquamarine;
+}
+
+#yes-confirm:hover {
+  cursor: pointer;
+  background-color: rgb(41, 121, 94);
+  color: white;
+}
+
+.fa-info-circle {
+  color: #ede7e3;
+}
+
+#information {
+  width: 300px;
+  padding: 10px;
+  background-color: #ece5a9;
+  border-radius: 5px;
+  position: absolute;
+  top: 110px;
+  left: 220px;
+  color: black;
+  z-index: 1000;
+  text-align: center;
+  font-weight: bold;
+}
+
+.fa-info-circle:hover + #information {
+  display: block; /* Pokazanie przy najechaniu */
+}
+
+.fa-rotate {
+  transition: transform 0.3s ease, color 0.3s ease; /* Płynne przejście dla koloru i obrotu */
+}
+.fa-rotate:hover {
+  color: rgb(23, 190, 74);
+  transform: rotate(135deg);
 }

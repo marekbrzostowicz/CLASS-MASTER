@@ -7,6 +7,7 @@ from config import Config
 
 
 
+
 db = SQLAlchemy()
 DB_NAME = "database.db"
 

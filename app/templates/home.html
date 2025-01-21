@@ -23,7 +23,10 @@
 
       <div class="content-wrapper">
         <div class="options">
-          <h2 onclick="showIcons()">ADD CLASS</h2>
+          <h2 onclick="showIcons()">
+            ADD CLASS &nbsp; <i class="fas fa-info-circle" id="information-icon"></i>
+          </h2>
+
           <h2 class="pdf"><a href="/pdf">GENERATE PDF</a></h2>
           <i
             class="fas fa-moon class-icon light-mode"
@@ -108,15 +111,22 @@
       <i class="fas fa-rotate"></i>
     </div>
 
-    <!-- <div id="delete-confirmation">
-    <h3>Are you sure you want to delete this class?</h3>
-    <button>NO</button>
-    <button>YES</button>
-  </div> -->
+    <div id="delete-confirmation" style="display: none">
+      <h3>Are you sure you want to delete this class?</h3>
+      <div style="display: flex; justify-content: space-evenly">
+        <button id="no-confirm">NO</button>
+        <button id="yes-confirm">YES</button>
+      </div>
+    </div>
+
+    <div id="information" style="display: none">
+      <p>
+        You can delete or change the name or symbol of the class by
+        right-clicking on it.
+      </p>
+    </div>
 
     <script src="{{ url_for('static', filename= 'js/auth/auth.js') }}"></script>
-    <!-- <script type="module" src="{{ url_for('static', filename='js/classes/main.js') }}"></script> -->
-    <!-- <script type="module" src="{{ url_for('static', filename='js/classes/main.js') }}"></script> -->
     <script src="{{ url_for('static', filename= 'js/home/home.js') }}"></script>
   </body>
 </html>

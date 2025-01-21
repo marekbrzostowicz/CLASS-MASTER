@@ -1,14 +1,14 @@
-from flask import Blueprint, render_template, jsonify, send_from_directory, current_app, request
-from app.models import PDF, Student, Grades
+from flask import Blueprint, render_template, jsonify, send_from_directory, current_app, request,  send_file
+from app.models import PDF, Student, Grades, Class
 from flask_login import login_required, current_user
-import os
 from app import db
-from flask import  send_file
 from .charts import generate_bar_chart
 from .pdf import create_pdf
 from sqlalchemy.orm import joinedload
 from .average import weighted_average
 from sqlalchemy import func
+from .files import transform
+import os
 
 
 
@@ -144,3 +144,35 @@ def calculate_average():
 
     return jsonify(results), 200
 
+
+@utils_bp.route('/api/files', methods = ['POST'])
+@login_required
+
+def get_file():
+
+    try:
+
+        file = request.files.get('file')
+        class_id = request.form.get('classId')
+
+        if not file:
+            return jsonify({"Error": "No file"}), 404
+        
+        print(transform(file))
+        data = transform(file)
+        print(class_id)
+
+        print(len(data[0]))
+        new_students = []
+        for i in range(len(data[0])):
+            new_student = Student(first_name=data[0][i], last_name=data[1][i], email=data[2][i], class_id=class_id)
+            new_students.append(new_student)
+
+        
+        db.session.add_all(new_students)
+        db.session.commit()
+
+        return jsonify({"message":"File recied", "filename": file.filename}), 200
+
+    except Exception as e:
+        return jsonify({"error": f'Error adding student {str(e)}'})

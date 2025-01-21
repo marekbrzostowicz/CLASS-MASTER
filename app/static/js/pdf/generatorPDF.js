@@ -141,7 +141,7 @@ function getValues() {
       10
     ); // Liczba punktów
 
-    // Sprawdź typ pytania
+
     const linesNumber = questionDiv.querySelector(".lines-number"); // Pytanie otwarte
     if (linesNumber) {
       data.o.push({

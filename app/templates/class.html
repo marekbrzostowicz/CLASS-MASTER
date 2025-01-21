@@ -39,23 +39,22 @@
           </div>
         </div>
 
-        <button id="create-student-btn">DODAJ UCZNIA</button>
         <!-- gdzies zapisz oceny -->
-        <div id="form-container" style="display: none;">
-          <div id="input-students">
-            
-          </div>
+        <div id="form-container" style="display: none">
+          <div id="input-students"></div>
         </div>
       </div>
 
-      <hr />
-
       <div id="grades-column"></div>
 
-      <!-- Przycisk do dodawania kolumny z ocenami -->
-      <button id="add-grades-col-btn">DODAJ KOLUMNE Z OCENAMI</button>
-
-      <hr />
+      <div id="adding-buttons">
+        <button id="create-student-btn" class="adding-button">
+          ADD STUDENTS
+        </button>
+        <button id="add-grades-col-btn" class="adding-button">
+          ADD GRADES COLUMN
+        </button>
+      </div>
 
       <input type="text" placeholder="Find student" id="search-student" />
       <table>
@@ -68,9 +67,15 @@
       <button id="color-change">COLOR</button>
     </div>
 
-
-    <p id="desc-1">You can manually enter the student data, or upload a file in Excel or CSV format from your computer.</p>
-    <p id="desc-2">If you are uploading a file, make sure the first column contains the first name, the second column contains the last name, and the third column contains the email address.</p>
+    <p id="desc-1">
+      You can manually enter the student data, or upload a file in Excel or CSV
+      format from your computer.
+    </p>
+    <p id="desc-2">
+      If you are uploading a file, make sure the first column contains the first
+      name, the second column contains the last name, and the third column
+      contains the email address.
+    </p>
 
     <script
       type="module"

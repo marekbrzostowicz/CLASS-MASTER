@@ -44,9 +44,6 @@ export async function fetchGradesForCharts(studentId) {
 }
 
 
-
-
-//DISPLAYING IMAGE
 export function displayPopupImage(imgUrl, fullName) {
 
   const overlay = document.createElement("div");

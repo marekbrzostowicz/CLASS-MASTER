@@ -276,3 +276,31 @@ table input {
   background-color: #858518;
   color: white;
 }
+
+
+#adding-buttons {
+ 
+  display: flex;
+  justify-content: space-between;
+}
+.adding-button{
+
+  background-color: #a6b0cf;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 15px;
+  border: none;
+  transition: 0.1s ease all;
+  margin-left: 30px;
+  margin-right: 30px;
+  
+
+}
+
+.adding-button:hover{
+  cursor: pointer;
+  color: white;
+  background-color: #787b83;
+  
+}
