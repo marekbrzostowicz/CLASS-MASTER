@@ -15,7 +15,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <title>{% block title %} Document {% endblock %}</title>
+    <title>{% block title %} Classes {% endblock %}</title>
   </head>
   <body>
     <div class="container">
@@ -23,86 +23,16 @@
 
       <div class="content-wrapper">
         <div class="options">
-          <h2 onclick="showIcons()">
-            ADD CLASS &nbsp; <i class="fas fa-info-circle" id="information-icon"></i>
+          <h2 id="add-class">
+            ADD CLASS &nbsp;
+            <i class="fas fa-info-circle" id="information-icon"></i>
           </h2>
 
           <h2 class="pdf"><a href="/pdf">GENERATE PDF</a></h2>
-          <i
-            class="fas fa-moon class-icon light-mode"
-            onclick="lightMode()"
-          ></i>
+          <i class="fas fa-moon class-icon light-mode"></i>
         </div>
 
         <div id="class-container"></div>
-      </div>
-    </div>
-
-    <div style="display: none" id="class-input">
-      <div>
-        <input
-          type="text"
-          name="class name"
-          id="name"
-          placeholder="Enter class name"
-          autocomplete="off"
-        />
-      </div>
-
-      <div id="icon-modal">
-        <i
-          onclick="showSave('fa-square-root-alt')"
-          class="fas fa-square-root-alt class-icon"
-          id="icon-choice"
-        ></i>
-        <i
-          onclick="showSave('fa-atom')"
-          class="fas fa-atom class-icon"
-          id="icon-choice"
-        ></i>
-        <i
-          onclick="showSave('fa-flask')"
-          class="fas fa-flask class-icon"
-          id="icon-choice"
-        ></i>
-        <i
-          onclick="showSave('fa-leaf')"
-          class="fas fa-leaf class-icon"
-          id="icon-choice"
-        ></i>
-        <i
-          onclick="showSave('fa-running')"
-          class="fas fa-running class-icon"
-          id="icon-choice"
-        ></i>
-        <i
-          onclick="showSave('fa-landmark')"
-          class="fas fa-landmark class-icon"
-          id="icon-choice"
-        ></i>
-        <i
-          onclick="showSave('fa-globe')"
-          class="fas fa-globe class-icon"
-          id="icon-choice"
-        ></i>
-        <i
-          onclick="showSave('fa-laptop-code')"
-          class="fas fa-laptop-code class-icon"
-          id="icon-choice"
-        ></i>
-        <i
-          onclick="showSave('fa-book')"
-          class="fas fa-book class-icon"
-          id="icon-choice"
-        ></i>
-        <i
-          onclick="showSave('fa-language')"
-          class="fas fa-language class-icon"
-          id="icon-choice"
-        ></i>
-      </div>
-      <div>
-        <button onclick="addClass()" id="save-button">SAVE</button>
       </div>
     </div>
 
@@ -126,7 +56,75 @@
       </p>
     </div>
 
+    <div style="display: none" id="class-input">
+      <div>
+        <input
+          type="text"
+          name="class name"
+          id="name"
+          placeholder="Enter class name"
+          autocomplete="off"
+        />
+      </div>
+
+      <div id="icon-modal">
+        <i
+          class="fas fa-square-root-alt class-icon"
+          id="icon-choice"
+          data-icon="fa-square-root-alt"
+        ></i>
+        <i
+          class="fas fa-atom class-icon"
+          id="icon-choice"
+          data-icon="fa-fa-atom"
+        ></i>
+        <i
+          class="fas fa-flask class-icon"
+          id="icon-choice"
+          data-icon="fa-flask"
+        ></i>
+        <i
+          class="fas fa-leaf class-icon"
+          id="icon-choice"
+          data-icon="fa-leaf"
+        ></i>
+        <i
+          class="fas fa-running class-icon"
+          id="icon-choice"
+          data-icon="fa-running"
+        ></i>
+        <i
+          class="fas fa-landmark class-icon"
+          id="icon-choice"
+          data-icon="fa-landmark"
+        ></i>
+        <i
+          class="fas fa-globe class-icon"
+          id="icon-choice"
+          data-icon="fa-globe"
+        ></i>
+        <i
+          class="fas fa-laptop-code class-icon"
+          id="icon-choice"
+          data-icon="fa-laptop-code"
+        ></i>
+        <i
+          class="fas fa-book class-icon"
+          id="icon-choice"
+          data-icon="fa-book"
+        ></i>
+        <i
+          class="fas fa-language class-icon"
+          id="icon-choice"
+          data-icon="fa-language"
+        ></i>
+      </div>
+      <div>
+        <button onclick="addClass()" id="save-button">SAVE</button>
+      </div>
+    </div>
+
     <script src="{{ url_for('static', filename= 'js/auth/auth.js') }}"></script>
-    <script src="{{ url_for('static', filename= 'js/home/home.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename= 'js/home/home.js') }}"></script>
   </body>
 </html>

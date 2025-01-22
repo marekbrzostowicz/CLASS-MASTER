@@ -71,41 +71,40 @@ body {
   background-color: #0056b3;
 }
 
-/* Ogólne style dla menu */
 .custom-weight-menu {
-  background-color: #ffffff; /* Białe tło */
-  border: 1px solid #ccc; /* Szary obramowanie */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtelny cień */
-  border-radius: 4px; /* Zaokrąglone rogi */
-  padding: 10px; /* Odstępy wewnętrzne */
+  background-color: #ffffff;
+  border: 1px solid #ccc; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px; 
+  padding: 10px; 
   position: absolute;
-  z-index: 1000; /* Wyższy z-index, aby menu było na wierzchu */
-  display: none; /* Domyślnie ukryte */
+  z-index: 1000; 
+  display: none; 
 }
 
-/* Style dla przycisków w menu */
+
 .custom-weight-menu button {
-  background-color: #f9f9f9; /* Jasne tło */
-  border: none; /* Bez obramowania */
-  padding: 8px 12px; /* Odstępy wewnętrzne */
-  margin: 5px 0; /* Odstępy między przyciskami */
-  width: 100%; /* Rozciągnięcie na całą szerokość menu */
-  text-align: left; /* Wyrównanie tekstu do lewej */
-  cursor: pointer; /* Zmiana kursora na "rękę" */
-  font-size: 14px; /* Rozmiar czcionki */
+  background-color: #f9f9f9; 
+  border: none; 
+  padding: 8px 12px;
+  margin: 5px 0; 
+  width: 100%; 
+  text-align: left;
+  cursor: pointer; 
+  font-size: 14px; 
 }
 
-/* Efekt hover dla przycisków */
+
 .custom-weight-menu button:hover {
-  background-color: #e6e6e6; /* Ciemniejsze tło na hover */
+  background-color: #e6e6e6;
 }
 
-/* Dodaj animację wyświetlania */
+
 .custom-weight-menu {
   animation: fadeIn 0.2s ease-in-out;
 }
 
-/* Kluczowe klatki animacji fadeIn */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -117,12 +116,14 @@ body {
   }
 }
 
-
+#average-container{
+  background:#ede7e3
+}
 
 .table-container {
   display: flex;
-  background: greenyellow;
-  justify-content: space-evenly;
+  background: #ede7e3;
+  justify-content: center;
 }
 
 table {
@@ -161,21 +162,27 @@ table th {
 
 
 #all-tables {
-  background-color: rgb(235, 130, 130);
+  background-color: #ede7e3;
 }
 
 #table-title{
-  background-color: lightgoldenrodyellow;
+  background-color: #ede7e3;
   display: flex;
   justify-content: space-between;
   padding-left: 30px;
   padding-right: 30px;
-  
+}
+
+#class-title{
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 5px;
+  border-bottom: 3px solid black;
 }
 
 #students-container{
   text-align: right;
-  background-color: #d3ffac;
+  background-color: #e4ddd9;
 }
 
 
@@ -187,7 +194,7 @@ table th {
 }
 
 .grade-column{
-  background-color: #93b476;
+  background-color: #bbbbae;
 }
 
 .grade-column:hover{
@@ -202,7 +209,7 @@ table input {
   height: 15px;
 }
 
-
+/* przycisk do zapisu ocen */
 #grades-button{
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
@@ -210,7 +217,7 @@ table input {
   margin-right: 20px;
   padding: 20px;
   color: white;
-  background-color: rgb(219, 89, 89);
+  background-color: rgb(35, 10, 10);
   border: none;
   border-radius: 15px;
 }
@@ -228,7 +235,7 @@ table input {
   left: 35%;
   width: 500px;
   height: 500px;
-  background-color: #a7aec2;
+  background-color: #bcb7ae;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -241,7 +248,7 @@ table input {
 #input-students input{
   
   font-size: 25px;
-  background-color: rgb(218, 218, 218);
+  background-color: rgb(255, 255, 255);
   width: 300px;
   height: 40px;
   border: none;
@@ -267,7 +274,7 @@ table input {
   padding-right: 10px;
   font-weight: bold;
   border: none;
-  background-color: #e9e99e;
+  background-color: #bfbfbd;
   border-radius: 10px;
   transition: 0.1s ease all;
 }
@@ -281,26 +288,85 @@ table input {
 #adding-buttons {
  
   display: flex;
-  justify-content: space-between;
-}
-.adding-button{
-
-  background-color: #a6b0cf;
-  font-weight: bold;
-  border-radius: 10px;
-  padding: 15px;
-  font-size: 15px;
-  border: none;
-  transition: 0.1s ease all;
-  margin-left: 30px;
-  margin-right: 30px;
-  
-
+  justify-content: space-evenly;
+  background-color: #49536e;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
-.adding-button:hover{
+.adding-button {
+  font-size: 18px;
+  color: #e1e1e1;
+  font-family: inherit;
+  font-weight: 800;
   cursor: pointer;
-  color: white;
-  background-color: #787b83;
-  
+  position: relative;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: color;
 }
+
+.adding-button:focus,
+button:hover {
+  color: #fff;
+}
+
+.adding-button:focus:after,
+.adding-button:hover:after {
+  width: 100%;
+  left: 0%;
+}
+
+.adding-button:after {
+  content: "";
+  pointer-events: none;
+  bottom: -2px;
+  left: 50%;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: #fff;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: width, left;
+}
+
+
+
+
+/* From Uiverse.io by ernestnash */ 
+#color-change {
+  display: inline-block;
+  padding: 0.9rem 1.8rem;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  border: 3px solid rgb(252, 70, 100);
+  cursor: pointer;
+  position: relative;
+  background-color: transparent;
+  text-decoration: none;
+  overflow: hidden;
+  z-index: 1;
+  font-family: inherit;
+ }
+ 
+ #color-change::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(252, 70, 100);
+  transform: translateX(-100%);
+  transition: all .3s;
+  z-index: -1;
+ }
+ 
+ #color-change:hover::before {
+  transform: translateX(0);
+ }

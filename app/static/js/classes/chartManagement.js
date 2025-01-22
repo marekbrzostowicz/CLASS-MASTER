@@ -43,9 +43,7 @@ export async function fetchGradesForCharts(studentId) {
   }
 }
 
-
 export function displayPopupImage(imgUrl, fullName) {
-
   const overlay = document.createElement("div");
   overlay.style.position = "fixed";
   overlay.style.top = "0";
@@ -62,14 +60,12 @@ export function displayPopupImage(imgUrl, fullName) {
   container.style.position = "relative";
   container.style.textAlign = "center";
 
-
   const imgElement = document.createElement("img");
   imgElement.src = imgUrl;
   imgElement.alt = `Wykres studenta: ${fullName}`;
   imgElement.style.maxWidth = "80%";
   imgElement.style.maxHeight = "80%";
   container.appendChild(imgElement);
-
 
   const closeButton = document.createElement("button");
   closeButton.textContent = "X";
@@ -87,13 +83,12 @@ export function displayPopupImage(imgUrl, fullName) {
   });
   container.appendChild(closeButton);
 
-
   const downloadButton = document.createElement("a");
   downloadButton.href = imgUrl;
   downloadButton.download = `Wykres_${fullName}.png`;
   downloadButton.textContent = "Pobierz";
   downloadButton.style.position = "absolute";
-  downloadButton.style.bottom = "10px";
+  downloadButton.style.bottom = "-35px";
   downloadButton.style.left = "50%";
   downloadButton.style.transform = "translateX(-50%)";
   downloadButton.style.backgroundColor = "green";
@@ -103,7 +98,6 @@ export function displayPopupImage(imgUrl, fullName) {
   downloadButton.style.cursor = "pointer";
   downloadButton.style.fontSize = "16px";
   container.appendChild(downloadButton);
-
 
   overlay.appendChild(container);
 

@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", async () => {
   const classId = getClassIdFromUrl();
   const classData = await fetchClassName(classId);
-  
 
   if (classData) {
     document.getElementById("class-title").textContent = classData.name;
@@ -38,7 +37,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   await showStudents(classId);
 
   createTable();
-
 
   await fetchColumnId(classId);
 });

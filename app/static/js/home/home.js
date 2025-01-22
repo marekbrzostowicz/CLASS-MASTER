@@ -1,11 +1,30 @@
-function getClassIdFromUrl() {
-  const urlParts = window.location.pathname.split("/");
-  return urlParts[urlParts.length - 1];
-}
+import { updateClassData, deleteClass, fetchClasses } from "./api.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const classes = await fetchClasses();
+  showClasses(classes);
+});
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetchClasses();
+  const addButton = document.getElementById("add-class");
+  if (addButton) {
+    addButton.addEventListener("click", () => {
+      showIcons("add");
+    });
+  }
+  const icons = document.querySelectorAll("#icon-modal .class-icon");
+  console.log(icons);
+  icons.forEach((icon) => {
+    icon.addEventListener("click", () => {
+      const iconName = icon.getAttribute("data-icon");
+      showSave(iconName);
+    });
+  });
 });
+
+function showSave(iconName) {
+  selectedIcon = iconName;
+}
 
 document.addEventListener("click", (event) => {
   const field = document.getElementById("class-input");
@@ -34,13 +53,16 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-function lightMode() {
-  console.log("Light mode toggle");
-}
-
-function showIcons() {
+function showIcons(mode) {
   const field = document.getElementById("class-input");
   const bin = document.getElementById("bin");
+  const button = document.getElementById("save-button");
+
+  if (mode === "add") {
+    button.textContent = "SAVE";
+  } else {
+    button.textContent = "UPTADE";
+  }
 
   if (field.style.display === "none" || !field.style.display) {
     field.style.display = "block";
@@ -48,6 +70,37 @@ function showIcons() {
   } else {
     field.style.display = "none";
   }
+
+  button.onclick = async () => {
+    const nameInput = document.getElementById("name");
+    const name = nameInput.value.trim();
+    console.log(name);
+    const icon = selectedIcon;
+    console.log(icon);
+
+    if (mode === "add") {
+      addClass();
+    } else {
+      const classId = bin.dataset.classId;
+      const changes = {};
+
+      if (name) {
+        changes.name = name;
+      }
+      if (icon) {
+        changes.icon = icon;
+      }
+      if (Object.keys(changes).length.length === 0) {
+        alert("No changes detected.");
+        return;
+      }
+
+      await updateClassData(classId, changes);
+      await fetchClasses();
+      hideIcons();
+      nameInput.value = "";
+    }
+  };
 }
 
 function hideIcons() {
@@ -55,13 +108,9 @@ function hideIcons() {
   field.style.display = "none";
 }
 
-let selectedIcon = null;
+let selectedIcon = null; // zmienna globalna ---------------------------
 
-function showSave(iconName) {
-  selectedIcon = iconName;
-}
-
-function addClass() {
+async function addClass() {
   const name = document.getElementById("name").value.trim();
 
   if (!selectedIcon && !name) {
@@ -80,33 +129,11 @@ function addClass() {
         name: name,
         icon: selectedIcon,
       }),
-    }).then(() => {
-      fetchClasses();
-      restartClassInput();
-      hideIcons();
-    });
-  }
-}
-
-async function fetchClasses() {
-  try {
-    const response = await fetch("/api/classes", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
     });
 
-    if (!response.ok) {
-      throw new Error(`Error: ${response.statusText}`);
-    }
-
-    const classes = await response.json();
-    showClasses(classes);
-    return classes;
-  } catch (error) {
-    console.error("Failed to fetch classes:", error);
-    return [];
+    await fetchClasses();
+    restartClassInput();
+    hideIcons();
   }
 }
 
@@ -192,24 +219,6 @@ function isBinShown(bin) {
   return bin.classList.contains("bin-shown");
 }
 
-async function deleteClass(classId) {
-  try {
-    const response = await fetch(`/api/classes/${parseInt(classId, 10)}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.statusText}`);
-    }
-    return response.json();
-  } catch (error) {
-    console.log("Failed to delete", error);
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   const trashIcon = document.querySelector(".fa-trash-alt");
   const yesButton = document.getElementById("yes-confirm");
@@ -218,6 +227,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const confirmation = document.getElementById("delete-confirmation");
   const information = document.getElementById("information-icon");
   const informationDiv = document.getElementById("information");
+
+  const rotateIcon = document.querySelector(".fa-rotate");
+
+  if (rotateIcon) {
+    rotateIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showIcons("_");
+    });
+  }
 
   if (information) {
     information.addEventListener("mouseenter", () => {
@@ -239,18 +257,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (yesButton) {
-    yesButton.addEventListener("click", () => {
+    yesButton.addEventListener("click", async () => {
       const classIdToDelete = bin.dataset.classId;
       if (!classIdToDelete) {
         console.warn("No class ID to delete");
         return;
       }
 
-      deleteClass(classIdToDelete).then(() => {
-        fetchClasses();
-        hideBin(bin);
-        confirmation.style.display = "none";
-      });
+      await deleteClass(classIdToDelete);
+      await fetchClasses();
+      hideBin(bin);
+      confirmation.style.display = "none";
     });
   }
 
@@ -261,6 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+///--------------------------------------------------------------
 function showDeleteConfirm() {
   const confirmation = document.getElementById("delete-confirmation");
   if (confirmation) {

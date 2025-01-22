@@ -69,3 +69,41 @@ def get_class_name_by_id(class_id):
         return jsonify({"error": "Class not found"}), 404
     
     return jsonify(cls.to_dict()), 200
+
+#UPDATOWANIE KLASY----------------------------------------------
+
+
+@classes_bp.route('/api/updateClass/<int:classId>', methods=["PATCH"])
+@login_required
+def update_class_data(classId):
+
+    try:
+        class_id = classId
+
+        data = request.json
+        if not data:
+            return jsonify({"message":"No data provided"}), 400
+        
+        icon = data.get('icon')
+        class_name = data.get('name')
+        print(icon, class_name)
+
+        if not icon and not class_name:
+            return jsonify({"message": "No changes provided"})
+        
+        class_ = Class.query.filter_by(id=class_id).first()
+        if not class_:
+            return jsonify({"error": "Class not found"}), 404
+        
+        if class_name:
+            class_.name = class_name
+        if icon:
+            class_.icon = icon
+
+        db.session.commit()
+
+        return jsonify({"message": "Class updated successfully"}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": f'Error updating class data {str(e)}'}), 404

@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden; /* Ukrycie przewijania poziomego */
+  
   font-family: "Montserrat", sans-serif;
   /* background-color: #e9ecef; */
   height: 100%;
@@ -13,7 +13,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow: hidden; /* Zapobiegaj przewijaniu */
+  /* overflow: hidden;  */
 }
 
 .content-wrapper {
@@ -127,7 +127,7 @@ h2:hover {
 
 #class-input {
   padding: 20px;
-  position: absolute;
+  position: fixed;
   background-color: #a7aec2;
   top: 50%;
   left: 51%;
@@ -136,6 +136,7 @@ h2:hover {
   flex-direction: column;
   text-align: center;
   border-radius: 25px;
+  z-index: 9999;
 }
 
 #icon-modal {
@@ -203,7 +204,7 @@ input:focus {
 
 #delete-confirmation {
   display: flex;
-  background-color: #a7aec2;
+  background-color: #fefce4;
   border-radius: 20px;
   position: absolute;
   top: 45%;
@@ -253,7 +254,7 @@ input:focus {
 #information {
   width: 300px;
   padding: 10px;
-  background-color: #ece5a9;
+  background-color: #fefce4;
   border-radius: 5px;
   position: absolute;
   top: 110px;

@@ -28,9 +28,20 @@
           <h3 id="student-counter"></h3>
         </div>
 
+        <div id="adding-buttons">
+        <button id="create-student-btn" class="adding-button">
+          ADD STUDENTS
+        </button>
+        <button id="add-grades-col-btn" class="adding-button">
+          ADD GRADES COLUMN
+        </button>
+        <button class="adding-button">FIND STUDENT</button>
+        <button id="color-change">COLOR</button>
+      </div>
+
         <div class="table-container">
           <div id="students-container"></div>
-          <div>
+          <div id="average-container">
             <table id="table-average">
               <tr>
                 <th>AVERAGE</th>
@@ -39,7 +50,6 @@
           </div>
         </div>
 
-        <!-- gdzies zapisz oceny -->
         <div id="form-container" style="display: none">
           <div id="input-students"></div>
         </div>
@@ -47,14 +57,7 @@
 
       <div id="grades-column"></div>
 
-      <div id="adding-buttons">
-        <button id="create-student-btn" class="adding-button">
-          ADD STUDENTS
-        </button>
-        <button id="add-grades-col-btn" class="adding-button">
-          ADD GRADES COLUMN
-        </button>
-      </div>
+      
 
       <input type="text" placeholder="Find student" id="search-student" />
       <table>
@@ -63,8 +66,8 @@
         </thead>
         <tbody id="students-data"></tbody>
       </table>
-      <hr />
-      <button id="color-change">COLOR</button>
+
+      
     </div>
 
     <p id="desc-1">

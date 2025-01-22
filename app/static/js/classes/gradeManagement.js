@@ -1,5 +1,7 @@
 import { createTable } from "./average.js";
 
+let areClassesAdded = false;
+
 export function addGradesInputs(index) {
   console.log("addGradesInputs, colIndex =", index);
   const table = document.querySelector("table");
@@ -37,15 +39,12 @@ export function getGradesFromInputs() {
   const inputs = document.querySelectorAll("table input");
   let gradesArray = [];
 
- 
-  for (const input of inputs){
-
+  for (const input of inputs) {
     const gradeValue = input.value;
-    if ((input.value < 0 || input.value > 5) || (isNaN(input.value))){
-      alert('Enter numbers only, Grades must be between 1 - 5')
-      input.value = ''
-      return []
-      
+    if (input.value < 0 || input.value > 5 || isNaN(input.value)) {
+      alert("Enter numbers only, Grades must be between 1 - 5");
+      input.value = "";
+      return [];
     }
     const studentId = input.dataset.studentId;
     const columnId = input.dataset.columnId;
@@ -61,9 +60,8 @@ export function getGradesFromInputs() {
       student_id: studentId,
       assesments_id: columnId,
     });
-
   }
-    
+
   return gradesArray;
 }
 
@@ -159,23 +157,36 @@ export function toggleGradeCells() {
       cell.classList.add("grades-colour");
     }
   });
+  applyGradesColor();
+  areClassesAdded = !areClassesAdded;
+}
 
+function applyGradesColor() {
   const allCells = document.querySelectorAll(".grades-colour");
-  console.log(allCells);
+
   allCells.forEach((cell) => {
     const value = cell.textContent.trim();
 
-    if (value === "5") {
-      cell.classList.toggle("grade-5");
-    } else if (value === "4") {
-      cell.classList.toggle("grade-4");
-    } else if (value === "3") {
-      cell.classList.toggle("grade-3");
-    } else if (value === "2") {
-      cell.classList.toggle("grade-2");
-    } else if (value === "1") {
-      cell.classList.toggle("grade-1");
+    if (!areClassesAdded) {
+      if (value === "5") {
+        cell.classList.add("grade-5");
+      } else if (value === "4") {
+        cell.classList.add("grade-4");
+      } else if (value === "3") {
+        cell.classList.add("grade-3");
+      } else if (value === "2") {
+        cell.classList.add("grade-2");
+      } else if (value === "1") {
+        cell.classList.add("grade-1");
+      }
+    } else {
+      cell.classList.remove(
+        "grade-5",
+        "grade-4",
+        "grade-3",
+        "grade-2",
+        "grade-1"
+      );
     }
   });
-
 }

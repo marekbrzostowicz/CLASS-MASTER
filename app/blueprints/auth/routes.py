@@ -5,14 +5,7 @@ from app import db
 from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy import func
 
-
-
 auth_bp = Blueprint('auth', __name__)
-
-
-proccessed_result = None
-test = None
-
 
 #LOGOWANIE------------------------------------------------
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -27,14 +20,12 @@ def auth_login():
         user = User.query.filter_by(email=email).first()
         if not user or not check_password_hash(user.password, password):
             
-            return jsonify({"error": "Invalid email or password"}), 401
-        
+            return jsonify({"error": "Invalid email or password"}), 401 
         login_user(user, remember=True)
 
         return jsonify({"redirect": url_for('auth.home')}), 200
 
     return render_template("login.html", user=current_user)
-
 
 #WYLOGOWANIE----------------------------------------------
 @auth_bp.route('/logout', methods=['POST'])
@@ -43,22 +34,16 @@ def logout():
     logout_user()
     return jsonify({"redirect": url_for('auth.auth_login')}), 200
    
-
-#HOME------------------------------------------
+#HOME----------------------------------------------------
 @auth_bp.route('/home', methods=['GET'])
 @login_required 
 def home():
     return render_template("home.html", user=current_user)
 
-
-
-
-
-#REJESTRACJA------------------------------------------------
+#REJESTRACJA----------------------------------------------
 @auth_bp.route('/register', methods=['GET'])
 def register_page():
     return render_template("register.html")
-
 
 #REJESTRACJA API------------------------------------------
 @auth_bp.route('/api/register', methods=['POST', 'GET'])
@@ -99,7 +84,6 @@ def auth_register():
 @auth_bp.route('/api/students', methods=['POST'])
 @login_required
 def add_student():
-
         try:
             data = request.json
 
@@ -115,14 +99,12 @@ def add_student():
             db.session.add(new_student)
             db.session.commit()
 
-            # <-- DODAJ TEN RETURN W PRZYPADKU SUKCESU
             return jsonify({
                 "message": "Student added",
                 "student": new_student.to_dict()
             }), 201
 
         except Exception as e:
-            # Dobrze też zrobić rollback w razie błędu
             db.session.rollback()
             return jsonify({"error": str(e)}), 500
         
