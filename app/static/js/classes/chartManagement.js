@@ -11,9 +11,8 @@ export function getAllStudentGrades(studentId) {
   });
 
   const filtetedArray = gradesArray.filter((element) => element.grade !== "");
-  console.log(`======= TABLICA ==== ${filtetedArray}`);
   return filtetedArray;
-  //==========zamienic pozniej cos????========!!!!!NWM
+
 }
 
 export async function fetchGradesForCharts(studentId) {

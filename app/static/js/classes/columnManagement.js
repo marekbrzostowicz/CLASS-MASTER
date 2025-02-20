@@ -3,7 +3,7 @@ import { showStudents } from "./studentManagement.js";
 import { displayPopupImage } from "./chartManagement.js";
 import { createTable, fetchColumnId } from "./average.js";
 
-//Pobieranie kolumn
+
 export async function fetchColumns() {
   console.log("Fetching columns for class ID");
   try {
@@ -23,7 +23,6 @@ export async function fetchColumns() {
   }
 }
 
-// Wysyłanie kolumny do backendu
 export async function addColumnToBackend(classId, columnName) {
   try {
     const response = await fetch("/api/assesments", {
@@ -87,13 +86,12 @@ export function addContextMenuListeners() {
       console.log("Kliknięto na kolumnę:", columnId);
       
 
-      // Usuń stare menu, jeśli istnieje
+
       let contextMenu = document.getElementById("context-menu");
       if (contextMenu) {
         contextMenu.remove();
       }
 
-      // Tworzenie nowego menu kontekstowego
       contextMenu = document.createElement("div");
       contextMenu.id = "context-menu";
       contextMenu.classList.add("custom-context-menu");
@@ -103,7 +101,7 @@ export function addContextMenuListeners() {
       contextMenu.style.display = "block";
       document.body.appendChild(contextMenu);
 
-      // Zawartość menu kontekstowego
+
       contextMenu.innerHTML = `
         <p class="context-menu-title">Opcje dla kolumny: ${header.textContent.trim()}</p>
         <button class="context-menu-btn" id="edit-column">Edytuj</button>
@@ -112,7 +110,6 @@ export function addContextMenuListeners() {
         <button class="context-menu-btn" id="chart">Wykres</button>
       `;
 
-      // Obsługa przycisków w menu
       document.getElementById("edit-column").onclick = () => {
         console.log(`Edytowanie kolumny ${columnId}`);
         contextMenu.style.display = "none";
@@ -120,7 +117,7 @@ export function addContextMenuListeners() {
 
       document.getElementById("delete-column").onclick = async () => {
         await deleteColum(columnId);
-        await showStudents(getClassIdFromUrl()); // Odświeżenie tabeli
+        await showStudents(getClassIdFromUrl()); 
         console.log(`Usuwanie kolumny ${columnId}`);
         contextMenu.style.display = "none";
       };
@@ -128,14 +125,14 @@ export function addContextMenuListeners() {
       document.getElementById("weight").onclick = (event) => {
         console.log("Button 'waga' clicked!");
 
-        // Usuń stare menu wag, jeśli istnieje
+
         let weightMenu = document.getElementById("weight-menu");
         if (weightMenu) {
           console.log("Removing old weight menu...");
           weightMenu.remove();
         }
 
-        // Tworzenie nowego menu wag
+
         console.log("Creating weight menu...");
         weightMenu = document.createElement("div");
         weightMenu.id = "weight-menu";
@@ -145,14 +142,14 @@ export function addContextMenuListeners() {
         weightMenu.style.top = `${event.clientY}px`;
         weightMenu.style.display = "block";
 
-        // Dodanie menu do DOM
+
         document.body.appendChild(weightMenu);
         console.log("Weight menu created and added to DOM");
 
-        // Zatrzymaj propagację zdarzenia kliknięcia w menu
+
         weightMenu.addEventListener("click", (e) => e.stopPropagation());
 
-        // Zawartość menu wag
+
         weightMenu.innerHTML = `
           <button class="weight-btn" data-weight="1">1</button>
           <button class="weight-btn" data-weight="2">2</button>
@@ -161,14 +158,13 @@ export function addContextMenuListeners() {
           <button class="weight-btn" data-weight="5">5</button>
         `;
 
-        // Obsługa kliknięcia przycisków
         const weightButtons = weightMenu.querySelectorAll(".weight-btn");
         weightButtons.forEach((button) => {
           button.addEventListener("click", () => {
             const weight = button.dataset.weight;
             console.log(`Selected weight: ${weight}`);
 
-            //TUTAJ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
             weightMenu.remove();
             contextMenu.remove();
             fetchWeight(weight, columnId);
@@ -177,7 +173,7 @@ export function addContextMenuListeners() {
           });
         });
 
-        // Zamykanie menu wag po kliknięciu poza nim
+  
         const closeWeightMenu = (event) => {
           if (!weightMenu.contains(event.target)) {
             console.log("Closing weight menu");
@@ -188,7 +184,7 @@ export function addContextMenuListeners() {
 
         document.addEventListener("click", closeWeightMenu);
 
-        // Zatrzymaj propagację kliknięcia na przycisku "waga"
+  
         event.stopPropagation();
       };
 
@@ -216,7 +212,7 @@ export function addContextMenuListeners() {
         }
       };
 
-      // Zamykanie menu kontekstowego po kliknięciu poza nim
+
       const closeContextMenu = (event) => {
         if (!contextMenu.contains(event.target)) {
           contextMenu.remove();
@@ -269,3 +265,44 @@ async function fetchWeight(weight, columnId) {
     console.error("Error updating waight", error.message);
   }
 }
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addGradesColBtn = document.getElementById("add-grades-col-btn");
+  const addColumnPopup = document.getElementById("add-column-popup");
+  const addColumnClose = document.getElementById("add-column-close");
+  const columnInput = document.getElementById("column-input");
+  const addColumnBtn = document.getElementById("add-column-btn");
+
+
+  addGradesColBtn.addEventListener("click", () => {
+    addColumnPopup.style.display = "block";
+    columnInput.focus();
+  });
+
+
+  addColumnClose.addEventListener("click", () => {
+    addColumnPopup.style.display = "none";
+    columnInput.value = "";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === addColumnPopup) {
+      addColumnPopup.style.display = "none";
+      columnInput.value = "";
+    }
+  });
+
+  addColumnBtn.addEventListener("click", () => {
+    const value = columnInput.value.trim();
+    if (!value) {
+      alert("Wpisz nazwę kolumny!");
+      return;
+    }
+
+    addColumnToBackend(getClassIdFromUrl(), value);
+    addColumnPopup.style.display = "none";
+    columnInput.value = "";
+  });
+});

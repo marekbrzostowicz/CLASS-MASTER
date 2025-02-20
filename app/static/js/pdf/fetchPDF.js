@@ -1,5 +1,58 @@
+function validateQuestions() {
+  const questionDivs = document.querySelectorAll("#question-div");
+  let isValid = true;
+
+  questionDivs.forEach((questionDiv, index) => {
+    const questionText = questionDiv
+      .querySelector("#question-text")
+      .value.trim();
+    const points = questionDiv.querySelector("#points-input").value.trim();
+
+    if (!questionText || !points) {
+      alert(
+        `Pytanie ${index + 1}: Treść pytania i liczba punktów są wymagane.`
+      );
+      isValid = false;
+      return;
+    }
+
+    const linesNumber = questionDiv.querySelector(".lines-number");
+    const abcOptions = questionDiv.querySelectorAll(".abc-input");
+    const trueFalseOptions = questionDiv.querySelector(".true-false-input");
+
+    if (!linesNumber && abcOptions.length === 0 && !trueFalseOptions) {
+      alert(
+        `Pytanie ${
+          index + 1
+        }: Wybierz typ pytania (otwarte, ABC lub prawda/fałsz).`
+      );
+      isValid = false;
+      return;
+    }
+
+    if (abcOptions.length > 0) {
+      abcOptions.forEach((option, optionIndex) => {
+        if (!option.value.trim()) {
+          alert(
+            `Pytanie ${index + 1}: Opcja ${
+              optionIndex + 1
+            } w pytaniu ABC jest pusta.`
+          );
+          isValid = false;
+          return;
+        }
+      });
+    }
+  });
+
+  return isValid;
+}
+
 async function sendDataAndDownloadPDF() {
   try {
+    if (!validateQuestions()) {
+      return;
+    }
 
     const data = getValues();
     const transformedData = dataTransformation(data);
@@ -7,6 +60,10 @@ async function sendDataAndDownloadPDF() {
 
     // const title = "Test PDF";
     const title = document.getElementById("title-input").value;
+    if (title === "") {
+      alert("Enter title");
+      return;
+    }
 
     console.log("Title sent to Flask:", title);
     console.log("Data sent to Flask:", transformedData);
@@ -27,13 +84,6 @@ async function sendDataAndDownloadPDF() {
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
-
-    // const a = document.createElement('a');
-    // a.href = url;
-    // a.download = 'C:\Users\Pan Marek\OneDrive\Pulpit\EDU-SPARK\generated_test.pdf';
-    // document.body.appendChild(a);
-    // a.click();
-    // a.remove();
   } catch (error) {
     console.error("Error generating or downloading PDF:", error);
   }
@@ -62,13 +112,12 @@ async function fetchPDF() {
       const listItem = document.createElement("li");
       const icon = document.createElement("i");
       icon.className = "fas fa-file-pdf";
-      icon.style.marginRight = '5px';
-
+      icon.style.marginRight = "5px";
 
       link.href = `/${pdf.filepath}`;
       link.textContent = pdf.filename;
       link.target = "_blank";
-      listItem.appendChild(icon)
+      listItem.appendChild(icon);
       listItem.appendChild(link);
       div.appendChild(listItem);
     });

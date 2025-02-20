@@ -7,19 +7,19 @@ export function addGradesInputs(index) {
   const table = document.querySelector("table");
   const rows = table.rows;
 
-  // kolumna dynamiczna
+
   const columnId = rows[0].cells[index].dataset.columnId;
 
   for (let i = 1; i < rows.length; i++) {
     const row = rows[i];
-    const cell = row.cells[index]; // już istnieje, bo rozszerzyliśmy wiersze
+    const cell = row.cells[index];
 
     if (cell.firstChild && cell.firstChild.tagName === "INPUT") {
-      // usuwamy input => przywracamy tekst
+
       const inputValue = cell.firstChild.value;
       cell.innerHTML = inputValue;
     } else {
-      // wstawiamy input
+
       const previousValue = cell.textContent.trim();
       cell.innerHTML = "";
       const input = document.createElement("input");
@@ -34,7 +34,6 @@ export function addGradesInputs(index) {
   }
 }
 
-// Zbieramy dane z inputow
 export function getGradesFromInputs() {
   const inputs = document.querySelectorAll("table input");
   let gradesArray = [];
@@ -49,7 +48,6 @@ export function getGradesFromInputs() {
     const studentId = input.dataset.studentId;
     const columnId = input.dataset.columnId;
 
-    // usuwamy input, przywracamy tekst
     const cell = input.parentElement;
     cell.classList.add("grade-cells");
     cell.removeChild(input);
@@ -65,7 +63,6 @@ export function getGradesFromInputs() {
   return gradesArray;
 }
 
-// Wysyłanie ocen do backendu (wywoływane przy "ZAPISZ OCENY")
 export async function addGradesToBackend() {
   const allGrades = getGradesFromInputs();
   try {
@@ -86,7 +83,6 @@ export async function addGradesToBackend() {
   }
 }
 
-// Pobieranie ocen z backendu i wstawianie do tabeli
 export async function fetchGrades() {
   console.log("Fetching grades");
   try {
@@ -100,7 +96,6 @@ export async function fetchGrades() {
     const grades = await response.json();
     console.log("Fetched grades", grades);
 
-    // Odczytanie globalnych map
     const columnIndexMap = window.columnIndexMap || {};
     const studentRowMap = window.studentRowMap || {};
 
@@ -130,7 +125,7 @@ export async function fetchGrades() {
       //   cell.className = ""
       //   cell.classList.add(`grade-${gradeVal}`)
       // }
-      // Wstawiamy ocenę
+
       cell.textContent = gradeVal;
     });
 
@@ -147,13 +142,11 @@ export function toggleGradeCells() {
   console.log(`========================${rows}`);
 
   rows.forEach((row) => {
-    // Pobierz liczbę komórek w wierszu
     const totalCells = row.cells.length;
 
-    // Iteruj po komórkach w wierszu od czwartej do przedostatniej
     for (let c = 4; c < totalCells; c++) {
       const cell = row.cells[c];
-      // Dodaj klasę do komórki
+
       cell.classList.add("grades-colour");
     }
   });

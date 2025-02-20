@@ -49,6 +49,9 @@ export async function addStudent(classId, firstName, lastName, email) {
     }
     const result = await response.json();
     console.log("Student added successfully:", result);
+    setTimeout(() => {
+      showStudents(classId);
+    }, 500);
 
     showStudents(classId);
   } catch (error) {
@@ -56,108 +59,92 @@ export async function addStudent(classId, firstName, lastName, email) {
   }
 }
 
-// Tworzy formularz do dodawania studenta
 export function createStudentForm() {
-  const classId = getClassIdFromUrl();
-  const formContainer = document.getElementById("form-container");
-  const p1 = document.getElementById("desc-1");
-  const p2 = document.getElementById("desc-2");
+  const studentPopup = document.getElementById("add-student-popup");
+  const studentClose = document.getElementById("add-student-close");
+  const addStudentBtn = document.getElementById("add-student-btn");
+  const firstNameInput = document.getElementById("student-firstname");
+  const lastNameInput = document.getElementById("student-lastname");
+  const emailInput = document.getElementById("student-email");
+  const fileInput = document.getElementById("student-file-upload");
 
-  // Sprawdzamy, czy jest schowany i ewentualnie pokazujemy
-  if (formContainer.style.display === "none") {
-    formContainer.style.display = "block";
+  // Jeśli popup jest już otwarty, nie dodawaj nowych event listenerów
+  if (studentPopup.style.display === "block") return;
 
-    // Czyścimy poprzednią zawartość
-    const inputStudent = document.getElementById("input-students");
-    inputStudent.innerHTML = "";
+  // Otwórz popup
+  studentPopup.style.display = "block";
 
-    // Pola do manualnego dodania studenta
-    const firstNameInput = document.createElement("input");
-    firstNameInput.placeholder = "Name";
+  // Usuń poprzednie event listenery (jeśli istnieją)
+  addStudentBtn.removeEventListener("click", handleStudentAdd);
+  studentClose.removeEventListener("click", closeStudentPopup);
+  window.removeEventListener("click", closeStudentPopupOutside);
+  fileInput.removeEventListener("change", handleFileUpload);
 
-    const lastNameInput = document.createElement("input");
-    lastNameInput.placeholder = "Last name";
+  // Dodaj event listenery
+  addStudentBtn.addEventListener("click", handleStudentAdd, { once: true });
+  studentClose.addEventListener("click", closeStudentPopup, { once: true });
+  window.addEventListener("click", closeStudentPopupOutside, { once: true });
+  fileInput.addEventListener("change", handleFileUpload, { once: true });
 
-    const emailInput = document.createElement("input");
-    emailInput.placeholder = "Email";
+  function handleStudentAdd() {
+    const classId = getClassIdFromUrl();
+    const firstName = firstNameInput.value.trim();
+    const lastName = lastNameInput.value.trim();
+    const email = emailInput.value.trim();
 
-    const addButton = document.createElement("button");
-    addButton.id = "add-manual";
-    const icon = document.createElement("p");
-    icon.className = "fas fa-arrow-right";
-    addButton.appendChild(icon);
+    if (!firstName || !lastName || !email) {
+      alert("Uzupełnij wszystkie pola!");
+      return;
+    }
 
-    addButton.onclick = () => {
-      addStudent(
-        classId,
-        firstNameInput.value,
-        lastNameInput.value,
-        emailInput.value
-      );
-    };
+    addStudent(classId, firstName, lastName, email);
+    closeStudentPopup();
+  }
 
-    // --- TU DODAJEMY input[type="file"] i od razu podpinamy event "change" ---
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.id = "file-input";
+  function handleFileUpload(event) {
+    const allowedTypes = [
+      "text/csv",
+      "application/vnd.ms-excel",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ];
+    const file = event.target.files[0];
 
-    fileInput.addEventListener("change", async (event) => {
-      // logika walidacji i wysyłki
-      const allowedTypes = [
-        "text/csv",
-        "application/vnd.ms-excel",
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      ];
-      const allowedExtensions = ["csv", "xls", "xlsx"];
+    if (file && allowedTypes.includes(file.type)) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("classId", getClassIdFromUrl());
 
-      const file = event.target.files[0];
-      if (file) {
-        const fileType = file.type;
-        const fileExtension = file.name.split(".").pop().toLowerCase();
+      fetch("/api/files", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error("Failed to send file");
+          showStudents(getClassIdFromUrl());
+        })
+        .catch((error) => console.error("Error sending file", error.message));
+    } else {
+      alert("Invalid file type");
+      fileInput.value = "";
+    }
+  }
 
-        if (
-          allowedTypes.includes(fileType) &&
-          allowedExtensions.includes(fileExtension)
-        ) {
-          const formData = new FormData();
-          formData.append("file", file);
-          formData.append('classId', getClassIdFromUrl())
-          try {
-            const response = await fetch("/api/files", {
-              method: "POST",
-              body: formData,
-              
-            });
-            if (!response.ok) {
-              const errorData = await response.json();
-              throw new Error(errorData.error || "Failed to send file");
-            }
-            const result = await response.json();
-            showStudents(getClassIdFromUrl()) //////
-            console.log("Wysłano plik:", result);
-          } catch (error) {
-            console.error("Error sending file", error.message);
-          }
-        } else {
-          alert("Invalid file type");
-          // resetujemy input, żeby można było wybrać kolejny
-          event.target.value = "";
-        }
-      }
-    });
+  function closeStudentPopup() {
+    studentPopup.style.display = "none";
+    clearStudentPopup();
+  }
 
-    // Wstawiamy elementy do kontenera
-    inputStudent.appendChild(p1);
-    inputStudent.appendChild(p2);
-    inputStudent.appendChild(firstNameInput);
-    inputStudent.appendChild(lastNameInput);
-    inputStudent.appendChild(emailInput);
-    inputStudent.appendChild(addButton);
+  function closeStudentPopupOutside(event) {
+    if (event.target === studentPopup) {
+      closeStudentPopup();
+    }
+  }
 
-    // Na koniec wstawiamy nasze pole typu file
-    inputStudent.appendChild(fileInput);
-  } else {
-    formContainer.style.display = "none";
+  function clearStudentPopup() {
+    firstNameInput.value = "";
+    lastNameInput.value = "";
+    emailInput.value = "";
+    fileInput.value = "";
   }
 }
 
@@ -166,7 +153,6 @@ export async function showStudents(classId) {
   const counter = document.getElementById("student-counter");
   document.getElementById("table-average");
   try {
-    // Pobierz listę studentów
     const response = await fetch(`/api/students/${classId}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -182,10 +168,8 @@ export async function showStudents(classId) {
     //   console.log('KLASA DODANE')
     // }
 
-    // Pobierz listę kolumn
     const columns = await fetchColumns();
 
-    // Szukamy kontenera w HTML
     const studentContainer = document.getElementById("students-container");
     if (!studentContainer) {
       console.error("students-container element not found");
@@ -193,7 +177,6 @@ export async function showStudents(classId) {
     }
     studentContainer.innerHTML = "";
 
-    // Filtrowanie po classId
     const filteredColumns = columns.filter(
       (column) => column.class_id === parseInt(classId, 10)
     );
@@ -209,11 +192,9 @@ export async function showStudents(classId) {
 
     console.log(`Displaying ${students.length} students`);
 
-    // Tworzymy tabelę
     const table = document.createElement("table");
     const trTitle = document.createElement("tr");
 
-    // Stałe kolumny (Index, Imię, Nazwisko, E-mail)
     const thIndex = document.createElement("th");
     thIndex.textContent = "ID"; // lub "Lp."
     const thName = document.createElement("th");
@@ -229,13 +210,11 @@ export async function showStudents(classId) {
     trTitle.appendChild(thEmail);
     table.appendChild(trTitle);
 
-    // Dodajemy wiersze (dla studentów)
+    // W funkcji showStudents zmień fragment tworzący komórki z imieniem i nazwiskiem:
     students.forEach((student, index) => {
       const trStudentData = document.createElement("tr");
+      trStudentData.dataset.studentId = student.id;
 
-      trStudentData.dataset.studentId = student.id; // Ustawienie dataset
-
-      // Tworzenie i dodawanie komórek do wiersza
       const tdIndex = document.createElement("td");
       tdIndex.textContent = index + 1;
 
@@ -245,30 +224,31 @@ export async function showStudents(classId) {
         counter.textContent = `${index + 1} STUDENTS`;
       }
 
+      // IMIONA
       const tdName = document.createElement("td");
       tdName.textContent = student.first_name;
-      tdName.addEventListener("click", () => {
-        fetchGradesForCharts(student.id);
-      });
+      tdName.addEventListener("contextmenu", (e) =>
+        handleStudentContextMenu(e, student.id)
+      ); // TUTAJ ZMIANA
 
-      const tdSedondName = document.createElement("td");
-      tdSedondName.textContent = student.last_name;
-      tdSedondName.addEventListener("click", () => {
-        fetchGradesForCharts(student.id);
-      });
+      // NAZWISKA
+      const tdSecondName = document.createElement("td"); // POPRAWA LITERÓWKI
+      tdSecondName.textContent = student.last_name;
+      tdSecondName.addEventListener("contextmenu", (e) =>
+        handleStudentContextMenu(e, student.id)
+      ); // TUTAJ ZMIANA
 
+      // EMAIL
       const tdEmail = document.createElement("td");
       tdEmail.textContent = student.email;
 
       trStudentData.appendChild(tdIndex);
       trStudentData.appendChild(tdName);
-      trStudentData.appendChild(tdSedondName);
+      trStudentData.appendChild(tdSecondName); // POPRAWA LITERÓWKI
       trStudentData.appendChild(tdEmail);
 
-      // Dodanie wiersza do tabeli
       table.appendChild(trStudentData);
     });
-
     filteredColumns.forEach((column, idx) => {
       const th = document.createElement("th");
       // const averageTh = document.createElement("th");
@@ -288,14 +268,12 @@ export async function showStudents(classId) {
 
     studentContainer.appendChild(table);
 
-    // Tworzymy guzik "ZAPISZ OCENY"
     const getGradesButton = document.createElement("button");
     getGradesButton.textContent = "SAVE GRADES";
     getGradesButton.id = "grades-button";
     studentContainer.appendChild(getGradesButton);
     getGradesButton.onclick = addGradesToBackend;
 
-    // ====== Rozszerz wiersze do 4 + filteredColumns.length kolumn =======
     const totalCols = 4 + filteredColumns.length;
     for (let r = 1; r < table.rows.length; r++) {
       const row = table.rows[r];
@@ -305,7 +283,6 @@ export async function showStudents(classId) {
       }
     }
 
-    // === Tworzymy mapy do fetchGrades ===
     const columnIndexMap = {};
     console.log(`+++++++++++++++++ ${filteredColumns.length}`);
 
@@ -318,7 +295,6 @@ export async function showStudents(classId) {
       }
     }
 
-    // map: studentId -> <tr>
     const studentRowMap = {};
     for (let r = 1; r < table.rows.length; r++) {
       const row = table.rows[r];
@@ -341,3 +317,96 @@ export async function showStudents(classId) {
     console.error("Error fetching students:", error.message);
   }
 }
+
+function handleStudentContextMenu(event, studentId) {
+  event.preventDefault();
+
+  // Pobierz imię i nazwisko studenta z klikniętej komórki
+  const studentRow = event.target.closest("tr");
+  const firstName = studentRow.children[1].textContent;
+  const lastName = studentRow.children[2].textContent;
+
+  // Usuń istniejące menu jeśli jest
+  const existingMenu = document.querySelector(".student-context-menu");
+  if (existingMenu) existingMenu.remove();
+
+  // Utwórz nowe menu
+  const menu = document.createElement("div");
+  menu.className = "student-context-menu";
+  menu.style.position = "absolute";
+  menu.style.left = `${event.pageX}px`;
+  menu.style.top = `${event.pageY}px`;
+  menu.style.zIndex = "1000";
+  menu.style.backgroundColor = "white";
+  menu.style.border = "1px solid #ddd";
+  menu.style.boxShadow = "0 2px 5px rgba(0,0,0,0.2)";
+  menu.style.padding = "10px";
+  menu.style.borderRadius = "8px";
+
+  // Nagłówek z imieniem i nazwiskiem
+  const title = document.createElement("div");
+  title.textContent = `${firstName} ${lastName}`;
+  title.style.fontWeight = "bold";
+  title.style.padding = "8px 16px";
+  title.style.borderBottom = "1px solid #ddd";
+  title.style.marginBottom = "5px";
+  title.style.textAlign = "center";
+
+  // Opcja wykresu
+  const chartOption = document.createElement("div");
+  chartOption.textContent = "Wykres";
+  chartOption.style.padding = "8px 16px";
+  chartOption.style.cursor = "pointer";
+  chartOption.style.textAlign = "center";
+  chartOption.addEventListener("click", () => {
+    fetchGradesForCharts(studentId);
+    menu.remove();
+  });
+
+  // Opcja usuwania
+  const deleteOption = document.createElement("div");
+  deleteOption.textContent = "Usuń";
+  deleteOption.style.padding = "8px 16px";
+  deleteOption.style.cursor = "pointer";
+  deleteOption.style.backgroundColor = "#e74c3c";
+  deleteOption.style.color = "white";
+  deleteOption.style.textAlign = "center";
+  deleteOption.style.marginTop = "5px";
+  deleteOption.addEventListener("click", async () => {
+    try {
+      const response = await fetch(`/api/students/${studentId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) throw new Error("Błąd podczas usuwania studenta");
+
+      menu.remove();
+      location.reload();
+    } catch (error) {
+      console.error("Błąd:", error);
+    }
+  });
+
+  menu.appendChild(title);
+  menu.appendChild(chartOption);
+  menu.appendChild(deleteOption);
+  document.body.appendChild(menu);
+
+  const closeMenu = () => {
+    menu.remove();
+    document.removeEventListener("click", closeMenu);
+  };
+  setTimeout(() => {
+    document.addEventListener("click", closeMenu);
+  }, 10);
+}
+
+const style = document.createElement("style");
+style.textContent = `
+  .student-context-menu div:hover {
+    background-color: #f5f5f5;
+  }
+`;
+
+document.head.appendChild(style);

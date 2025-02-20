@@ -176,7 +176,7 @@ h2:hover {
 }
 
 input:focus {
-  outline: none; /* Usuwa obramowanie */
+  outline: none; 
 }
 
 .bin-hidden {
@@ -266,13 +266,17 @@ input:focus {
 }
 
 .fa-info-circle:hover + #information {
-  display: block; /* Pokazanie przy najechaniu */
+  display: block; 
 }
 
 .fa-rotate {
-  transition: transform 0.3s ease, color 0.3s ease; /* Płynne przejście dla koloru i obrotu */
+  transition: transform 0.3s ease, color 0.3s ease; 
 }
 .fa-rotate:hover {
   color: rgb(23, 190, 74);
   transform: rotate(135deg);
 }
+
+
+
+

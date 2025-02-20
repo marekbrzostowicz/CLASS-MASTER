@@ -16,6 +16,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <title>Document</title>
+    <style></style>
   </head>
 
   <body>
@@ -24,20 +25,22 @@
 
       <div id="all-tables">
         <div id="table-title">
-          <h1 id="class-title"></h1>
+          <h1 id="class-title" data-class-id="{{ class_id }}">Nazwa Klasy</h1>
           <h3 id="student-counter"></h3>
         </div>
 
         <div id="adding-buttons">
-        <button id="create-student-btn" class="adding-button">
-          ADD STUDENTS
-        </button>
-        <button id="add-grades-col-btn" class="adding-button">
-          ADD GRADES COLUMN
-        </button>
-        <button class="adding-button">FIND STUDENT</button>
-        <button id="color-change">COLOR</button>
-      </div>
+          <button id="create-student-btn" class="adding-button">
+            ADD STUDENTS
+          </button>
+          <button id="add-grades-col-btn" class="adding-button">
+            ADD GRADES COLUMN
+          </button>
+          <button id="find-student-btn" class="adding-button">
+            FIND STUDENT
+          </button>
+          <button id="color-change">COLOR</button>
+        </div>
 
         <div class="table-container">
           <div id="students-container"></div>
@@ -55,35 +58,65 @@
         </div>
       </div>
 
-      <div id="grades-column"></div>
-
-      
-
-      <input type="text" placeholder="Find student" id="search-student" />
       <table>
         <thead>
-          <tr id="table-headers"></tr>
+          <tr id="main-table-headers"></tr>
         </thead>
-        <tbody id="students-data"></tbody>
+        <tbody id="main-students-data"></tbody>
       </table>
-
-      
     </div>
 
-    <p id="desc-1">
-      You can manually enter the student data, or upload a file in Excel or CSV
-      format from your computer.
-    </p>
-    <p id="desc-2">
-      If you are uploading a file, make sure the first column contains the first
-      name, the second column contains the last name, and the third column
-      contains the email address.
-    </p>
+    <div id="student-search-popup" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Wyszukaj ucznia</h2>
+        <input
+          type="text"
+          id="popup-search-input"
+          placeholder="Wpisz imię lub nazwisko"
+        />
+        <div class="table-container">
+          <table id="popup-table">
+            <thead>
+              <tr id="popup-table-headers"></tr>
+            </thead>
+            <tbody id="popup-students-data"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="add-column-popup" class="modal">
+      <div class="modal-content">
+        <span class="close" id="add-column-close">&times;</span>
+        <h2>Dodaj kolumnę ocen</h2>
+        <input
+          type="text"
+          id="column-input"
+          placeholder="Wpisz nazwę kolumny"
+        />
+        <button id="add-column-btn">ADD</button>
+      </div>
+    </div>
+
+    <div id="add-student-popup" class="modal">
+      <div class="modal-content">
+        <span class="close" id="add-student-close">&times;</span>
+        <h2>Dodaj Studenta</h2>
+
+        <input type="text" id="student-firstname" placeholder="First Name" />
+        <input type="text" id="student-lastname" placeholder="Last Name" />
+        <input type="text" id="student-email" placeholder="Email" />
+        <button id="add-student-btn">ADD</button>
+
+        <input type="file" id="student-file-upload" />
+      </div>
+    </div>
 
     <script
       type="module"
       src="{{ url_for('static', filename='js/classes/main.js') }}"
     ></script>
-    <script src="{{ url_for('static', filename= 'js/auth/auth.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/auth/auth.js') }}"></script>
   </body>
 </html>

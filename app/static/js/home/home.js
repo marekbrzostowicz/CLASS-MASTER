@@ -84,9 +84,16 @@ function showIcons(mode) {
       const classId = bin.dataset.classId;
       const changes = {};
 
+      if (name.length > 60) {
+        alert("Too many letters. Max 60");
+        restartClassInput();
+        return;
+      }
+
       if (name) {
         changes.name = name;
       }
+
       if (icon) {
         changes.icon = icon;
       }
@@ -96,7 +103,8 @@ function showIcons(mode) {
       }
 
       await updateClassData(classId, changes);
-      await fetchClasses();
+      const classes = await fetchClasses();
+      showClasses(classes);
       hideIcons();
       nameInput.value = "";
     }
@@ -119,6 +127,10 @@ async function addClass() {
     alert("Wpisz nazwę klasy");
   } else if (!selectedIcon) {
     alert("Wybierz ikonę");
+  } else if (name.length > 60) {
+    alert("Too many letters. Max 60");
+    restartClassInput();
+    return;
   } else {
     fetch(`api/classes`, {
       method: "POST",
@@ -131,7 +143,8 @@ async function addClass() {
       }),
     });
 
-    await fetchClasses();
+    const classes = await fetchClasses();
+    showClasses(classes);
     restartClassInput();
     hideIcons();
   }
@@ -154,7 +167,6 @@ function createClassElement(obj, index) {
 
   classWrapper.classList.add("class-wrapper");
 
-  // Prawy przycisk myszy => pokazuje kosz
   classWrapper.addEventListener("contextmenu", (event) => {
     event.preventDefault();
     if (confirmation.style.display === "block") {
@@ -164,7 +176,6 @@ function createClassElement(obj, index) {
     bin.dataset.classId = obj.id;
   });
 
-  // Kliknięcie na klasę
   classWrapper.addEventListener("click", (event) => {
     const bin = document.getElementById("bin");
     const field = document.getElementById("class-input");
@@ -176,14 +187,18 @@ function createClassElement(obj, index) {
 
     if (field.style.display === "block") {
       hideIcons();
-      return; // Przerywamy dalsze działanie
+      return;
     }
 
-    // Jeżeli ani kosz, ani panel z ikonami nie są widoczne => przechodzimy do widoku klasy
     window.location.href = `/class/${obj.id}`;
   });
 
-  // Struktura wewnątrz wrappera: ikona + nazwa klasy
+  if (obj.name.length > 15) {
+    classElement.style.fontSize = "15px";
+    classElement.style.whiteSpace = "normal";
+    classElement.style.wordWrap = "break-word";
+  }
+
   const classIcon = document.createElement("div");
   classIcon.id = "classId";
   classIcon.innerHTML = `<i class="fas ${obj.icon} class-icon"></i>`;
@@ -265,7 +280,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       await deleteClass(classIdToDelete);
-      await fetchClasses();
+      const classes = await fetchClasses();
+      showClasses(classes);
       hideBin(bin);
       confirmation.style.display = "none";
     });

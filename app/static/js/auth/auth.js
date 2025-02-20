@@ -109,18 +109,3 @@ function logout() {
       alert("Failed to log out. Please try again");
     });
 }
-
-// function add() {
-//     const name = document.getElementById("name").value
-
-//     fetch(`api/classes`, {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//             name:name
-//         })
-//     })
-
-// }

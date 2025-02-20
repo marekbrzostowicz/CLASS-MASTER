@@ -1,10 +1,8 @@
 body {
   background-color: #ede7e3;
   font-family: "Montserrat", sans-serif;
-  margin: 0
-
+  margin: 0;
 }
-
 
 .table-style-display-none {
   display: none;
@@ -14,10 +12,11 @@ body {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1000;
   width: 100%;
 }
 
-#all-content{
+#all-content {
   margin-top: 180px;
 }
 
@@ -73,37 +72,33 @@ body {
 
 .custom-weight-menu {
   background-color: #ffffff;
-  border: 1px solid #ccc; 
+  border: 1px solid #ccc;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 4px; 
-  padding: 10px; 
+  border-radius: 4px;
+  padding: 10px;
   position: absolute;
-  z-index: 1000; 
-  display: none; 
+  z-index: 1000;
+  display: none;
 }
-
 
 .custom-weight-menu button {
-  background-color: #f9f9f9; 
-  border: none; 
+  background-color: #f9f9f9;
+  border: none;
   padding: 8px 12px;
-  margin: 5px 0; 
-  width: 100%; 
+  margin: 5px 0;
+  width: 100%;
   text-align: left;
-  cursor: pointer; 
-  font-size: 14px; 
+  cursor: pointer;
+  font-size: 14px;
 }
-
 
 .custom-weight-menu button:hover {
   background-color: #e6e6e6;
 }
 
-
 .custom-weight-menu {
   animation: fadeIn 0.2s ease-in-out;
 }
-
 
 @keyframes fadeIn {
   from {
@@ -116,8 +111,8 @@ body {
   }
 }
 
-#average-container{
-  background:#ede7e3
+#average-container {
+  background: #ede7e3;
 }
 
 .table-container {
@@ -127,9 +122,9 @@ body {
 }
 
 table {
-  border-collapse:collapse;
+  border-collapse: collapse;
   font-size: 15px;
-  
+
   border-spacing: 50px !important;
 }
 
@@ -139,7 +134,7 @@ table td:first-child {
   font-size: 15px;
   font-weight: bold;
 }
-table th:first-child{
+table th:first-child {
   border: none;
 }
 
@@ -147,25 +142,20 @@ table td {
   border-bottom: 1px solid black;
   padding: 10px;
   text-align: center;
-  
 }
 
 table th {
   font-size: 20px;
-  /* border-bottom: 3px solid black; */
   border-left: 3px solid black;
   border-right: 3px solid black;
   padding: 5px;
-  
-  
 }
-
 
 #all-tables {
   background-color: #ede7e3;
 }
 
-#table-title{
+#table-title {
   background-color: #ede7e3;
   display: flex;
   justify-content: space-between;
@@ -173,32 +163,29 @@ table th {
   padding-right: 30px;
 }
 
-#class-title{
+#class-title {
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 5px;
   border-bottom: 3px solid black;
 }
 
-#students-container{
+#students-container {
   text-align: right;
   background-color: #e4ddd9;
 }
 
-
-
-
-#table-average td  {
+#table-average td {
   border: none;
   border-bottom: 1px solid black;
 }
 
-.grade-column{
+.grade-column {
   background-color: #bbbbae;
 }
 
-.grade-column:hover{
-  cursor: pointer;  
+.grade-column:hover {
+  cursor: pointer;
 }
 
 table input {
@@ -209,8 +196,7 @@ table input {
   height: 15px;
 }
 
-/* przycisk do zapisu ocen */
-#grades-button{
+#grades-button {
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
   margin-top: 20px;
@@ -226,11 +212,9 @@ table input {
   background-color: rgb(139, 58, 58);
 }
 
-
-
-#input-students{
+#input-students {
   color: #040200;
-  position:fixed;
+  position: fixed;
   top: 15%;
   left: 35%;
   width: 500px;
@@ -243,17 +227,14 @@ table input {
   align-items: center;
   border-radius: 25px;
   padding: 20px;
-  
 }
-#input-students input{
-  
+#input-students input {
   font-size: 25px;
   background-color: rgb(255, 255, 255);
   width: 300px;
   height: 40px;
   border: none;
   border-radius: 10px;
-  
 }
 
 #desc-2 {
@@ -263,14 +244,14 @@ table input {
 }
 
 #file-input {
-  background-color: #a7aec2 !important;;
+  background-color: #a7aec2 !important;
   font-size: 20px !important;
   color: black;
 }
 
 #add-manual {
   font-size: 20px;
-  padding-left: 10px ;
+  padding-left: 10px;
   padding-right: 10px;
   font-weight: bold;
   border: none;
@@ -284,9 +265,7 @@ table input {
   color: white;
 }
 
-
 #adding-buttons {
- 
   display: flex;
   justify-content: space-evenly;
   background-color: #49536e;
@@ -334,10 +313,6 @@ button:hover {
   transition-property: width, left;
 }
 
-
-
-
-/* From Uiverse.io by ernestnash */ 
 #color-change {
   display: inline-block;
   padding: 0.9rem 1.8rem;
@@ -352,9 +327,9 @@ button:hover {
   overflow: hidden;
   z-index: 1;
   font-family: inherit;
- }
- 
- #color-change::before {
+}
+
+#color-change::before {
   content: "";
   position: absolute;
   left: 0;
@@ -363,10 +338,268 @@ button:hover {
   height: 100%;
   background-color: rgb(252, 70, 100);
   transform: translateX(-100%);
-  transition: all .3s;
+  transition: all 0.3s;
   z-index: -1;
- }
- 
- #color-change:hover::before {
+}
+
+#color-change:hover::before {
   transform: translateX(0);
- }
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #000;
+}
+
+#popup-search-input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+#popup-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#popup-table th,
+#popup-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  position: relative;
+}
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: #000;
+}
+
+#popup-search-input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+#popup-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#popup-table th,
+#popup-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+  position: relative;
+}
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: #000;
+}
+#column-input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+#add-student-popup {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+#add-student-popup .modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 10% auto;
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+#add-student-popup .close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 28px;
+  color: #999;
+  cursor: pointer;
+}
+
+#add-student-popup .close:hover {
+  color: #333;
+}
+
+#add-student-popup input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+#add-student-btn {
+  background-color: #4caf50;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#add-student-btn:hover {
+  background-color: #43a047;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  position: relative;
+}
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: #000;
+}
+
+#popup-search-input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+#popup-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#popup-table th,
+#popup-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}

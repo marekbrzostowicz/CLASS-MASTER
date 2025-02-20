@@ -14,8 +14,6 @@ export async function createTable() {
     table.deleteRow(1);
   }
 
-  // Dodaj wiersze na podstawie liczby uczniów
-
   const grades = await fetchColumnId(getClassIdFromUrl());
   console.log(grades);
   grades.forEach((grade) => {
@@ -49,8 +47,6 @@ export async function fetchColumnId(classId) {
       console.log("KLASA DODANE");
     } else {
       table.classList.remove("table-style-display-none")
-      // fetchColumnId(getClassIdFromUrl())
-      // createTable()
     }
 
     console.log(data);

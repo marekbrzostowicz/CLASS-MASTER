@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, send_file
-from app.models import User, Class, Student, Assesments, Grades
+from app.models import Class, Assesments, Grades
 from app import db
 from flask_login import login_required, current_user
 # from utils.charts import generate_bar_chart
@@ -40,9 +40,6 @@ def update_weight():
         return jsonify({"error": f"An error occured ${str(e)}"})
     
 
-
-
-
 #DODAWANIE KOLUMN Z OCENAMI----------------------------------------------
 @assessments_bp.route('/api/assesments', methods=['GET', 'POST'])
 @login_required
@@ -76,11 +73,7 @@ def add_column():
             db.session.rollback()
             return jsonify({"error": str(e)}), 500
         
-
-
-
-
-    
+  
 #USUWANIE KOLUMN--------------------------------------------
 @assessments_bp.route('/api/students', methods=['DELETE'])
 @login_required
@@ -124,7 +117,6 @@ def generate_column_chart():
         if not column:
             return jsonify({"error": "No such column ID found"}), 404
 
-        # Filtrowanie pustych ocen
         all_grades = column.grades
         grades_ = [
             int(grade.grade)
@@ -135,7 +127,6 @@ def generate_column_chart():
         if not grades_:
             return jsonify({"error": "No valid grades available for this column."}), 404
 
-        # Wygenerowanie wykresu
         image = generate_bar_chart(grades_, column.column_name)
         return send_file(image, mimetype='image/png', as_attachment=False)
 

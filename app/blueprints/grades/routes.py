@@ -6,7 +6,6 @@ from flask_login import  login_required, current_user
 
 
 grades_bp = Blueprint('grades', __name__)
-#po kliknieuc wagi jeszcze aktualizacja wag i rysowanie tabeli
 
 #OCENY-----------------------------------------------------------------------
 @grades_bp.route('/api/grades', methods=['GET', 'POST'])

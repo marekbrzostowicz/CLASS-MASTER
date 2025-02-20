@@ -1,188 +1,315 @@
-
 body {
   margin: 0;
   padding: 0;
-  overflow: auto;
   font-family: "Montserrat", sans-serif;
+  background-color: #f4f4f4;
+  overflow: auto;
 }
 
-/* === GŁÓWNY KONTENER NA CAŁE OKNO === */
 .container-pdf {
   margin-top: 180px;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px;
   min-height: calc(100vh - 180px);
-   
-  
 }
 
-/* === LEWA KOLUMNA (INPUTY) === */
 #question-input {
   position: sticky;
+  top: 180px;
+  width: 300px;
   background-color: #49536e;
   color: #ede7e3;
-  width: 380px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 30px;
   gap: 20px;
+  height: calc(100vh - 220px);
   overflow-y: auto;
-  
 }
 
 #question-input p {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
+  margin: 0;
 }
 
 #question-input input[type="text"] {
-  width: 350px;
-  height: 35px;
-  border-radius: 20px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
   border: none;
-  font-size: 30px;
-  background-color: rgb(235, 235, 235);
-  padding: 5px;
+  font-size: 16px;
+  background-color: #ebebeb;
 }
 
-/* Suwak (range) i wartość obok */
-#range-container {
+/* Sekcja pytań */
+#all-questions {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  background-color: #ede7e3;
+  border-radius: 10px;
+  overflow-y: auto;
+}
+
+#question-div {
+  width: 48%;
+  background: linear-gradient(to bottom right, #ffffff, #f0f4f8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d1d5db;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
+}
+
+#question-div:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.question-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+#question-text {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #eef2f7;
+  margin-bottom: 15px;
+  transition: background-color 0.2s ease;
+}
+
+#question-text:focus {
+  outline: none;
+  background-color: #d1e7ff;
+}
+
+#points-div {
+  display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 15px;
 }
-#question-input input[type="range"] {
-  width: 350px !important;
-  border-radius: 0;
-  padding: 0;
-  /* color: rgb(25, 55, 55); */
+
+#points-div h3 {
+  margin: 0;
+  font-size: 16px;
 }
-#range-value {
-  font-size: 40px;
-  width: 30px;
+
+#points-input {
+  width: 60px;
+  padding: 5px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #eef2f7;
   text-align: center;
 }
 
-/* Ikona do tworzenia pytań */
-#question-number {
-  font-size: 55px;
-  color: #fceca4;
-  transition: 0.2s;
-  cursor: pointer;
-}
-#question-number:hover {
-  color: #9af68a;
+#points-input:focus {
+  outline: none;
+  background-color: #d1e7ff;
 }
 
-/* Kontener przycisków */
-#buttons-container {
+#type-div {
   display: flex;
-  justify-content: space-between;
-  gap: 50px;
-  margin-top: 30px;
-}
-
-#generate-button {
-  font-size: 15px;
-  padding: 20px; /* Jeśli chcesz inny padding */
-  border-radius: 25px;
-  font-weight: bold;
-  border: none;
-  background-color: #fff5c6;
-}
-#generate-button:hover {
-  background-color: #9af68a;
-}
-
-#reset-button {
-  font-size: 15px;
-  padding: 20px;
-  border-radius: 25px;
-  font-weight: bold;
-  border: none;
-  background-color: #f98d8d;
-  color: #2f1a70;
-}
-
-/* === PRAWA SEKCJA (GENEROWANE PYTANIA) === */
-#all-questions {
-  /* Zajmuje resztę szerokości */
-  flex: 1;
-  /* Przewijanie w pionie tylko w tej sekcji */
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-start;
-
-  background-color: #ede7e3;
-  padding: 20px;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
-/* Pojedynczy box pytania */
-#question-div {
-  display: flex;
-  flex-direction: column;
-  
-  align-items: center;
-
-  padding: 40px;
-  margin: 10px;
-  width: 700px;
-  flex-shrink: 0;
-  border: 1px solid #ddd;
-  background-color: #efefef;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  text-align: center;
+.type-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #7c3aed;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
+.type-button:hover {
+  background-color: #5b21b6;
+}
+
+.lines-number,
+.abc-input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  background-color: #eef2f7;
+  font-size: 16px;
+}
+
+.delete-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ef4444;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-end;
+}
+
+.delete-button:hover {
+  background-color: #b91c1c;
+}
 
 #pdf-div {
-  
   width: 250px;
   background-color: #efefef;
-  list-style: none;
-  font-size: 20px;
-  padding: 10px;
-  text-align: right;
-  word-wrap: break-word;
-
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-a {
-  text-decoration: none; 
-  color: #0a0a0a; 
-  
+#pdf-div h3 {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+}
+
+#pdf-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#pdf-list li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.1s ease;
+}
+
+#pdf-list li:hover {
+  transform: scale(1.04);
+}
+
+#pdf-list a {
+  text-decoration: none;
+  color: #0a0a0a;
+  font-size: 16px;
 }
 
 .fa-file-pdf {
   color: #ef7676;
 }
 
-li {
-  margin-bottom: 20px;
-  transition: 0.1s;
+.fa-trash {
+  color: #ef4444;
+  cursor: pointer;
 }
 
-li:hover{
-  transform: scale(1.04);
-  
-
+.fa-trash:hover {
+  color: #b91c1c;
 }
 
+#buttons-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+#reset-button,
+#generate-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#reset-button {
+  background-color: #fea9a9;
+  color: white;
+}
+
+#reset-button:hover {
+  background-color: #ff4d4d;
+  transform: scale(1.05);
+}
+
+#generate-button {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+}
+
+#generate-button:hover {
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+  transform: scale(1.05);
+}
+
+#question-number {
+  font-size: 50px;
+  color: #0fcf65;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: color 0.2s ease-in-out;
+}
+
+#question-number:hover {
+  color: #0a9e4b;
+}
 
 #all-elementsss {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000; /* Sprawia, że navbar jest na wierzchu */
-  height: 180px; /* Dopasowane do rzeczywistej wysokości navbar */
+  height: 180px;
+  z-index: 1000;
+}
+
+@media (max-width: 1024px) {
+  .container-pdf {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  #question-input {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+
+  #all-questions {
+    padding: 10px;
+  }
+
+  #question-div {
+    width: 100%;
+  }
+
+  #pdf-div {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 1025px) {
+  #question-div {
+    width: 48%;
+  }
 }
