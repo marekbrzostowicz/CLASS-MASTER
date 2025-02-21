@@ -1,3 +1,5 @@
+# PDF Test Generator
+
 ## Description
 
 This is a web application designed for educators, providing a comprehensive toolset to manage educational content and assessments. Built using Flask, HTML, CSS, and JavaScript, it enables teachers to:
@@ -12,37 +14,41 @@ The interface is responsive and user-friendly, featuring a clean design with a l
 
 ## Screenshot
 
-### Adding class  
+### Adding Class  
 
 ![image](https://github.com/user-attachments/assets/3dbc92a5-04a2-4a12-a977-fbe6e0bdec93)  
 
-### elete or change class parameters  
+### Delete or Change Class Parameters  
 
 ![image](https://github.com/user-attachments/assets/c15f131e-1f8d-42be-b1d2-0a38de51702f)  
 
-### Adding student  
+### Adding Student  
 
 ![image](https://github.com/user-attachments/assets/d696f430-afc1-4171-aac7-d0e0840a5761)  
 
-### Entering grades  
+### Entering Grades  
 
 ![image](https://github.com/user-attachments/assets/9c6ec729-96e5-4f54-ae47-fe85e708e42a)  
 
-### Options for columns  
+### Options for Columns  
 
 ![image](https://github.com/user-attachments/assets/7544d276-7ee1-402c-a210-95b90b4e843c)  
 
-### Charts can be generated for individual students or columns  
+### Charts Can Be Generated for Individual Students or Columns  
 
 ![image](https://github.com/user-attachments/assets/ddc50335-6dec-48e6-b230-5294317231f2)  
 
-### Searching students  
+### Searching Students  
 
 ![image](https://github.com/user-attachments/assets/759e1e46-e704-4f5d-ba33-ca7f4784daf2)  
 
-### Generating pdf  
+### Generating PDF  
 
 ![image](https://github.com/user-attachments/assets/205e05b4-9cbb-490d-a85d-388d54e1c47d)  
 
 ![image](https://github.com/user-attachments/assets/82360f60-1cef-4ace-a480-94e0137c5135)  
 
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/marekbrzostowicz/CLASS-MASTER.git
