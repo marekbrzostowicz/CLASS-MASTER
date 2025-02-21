@@ -51,7 +51,7 @@ The interface is responsive and user-friendly, featuring a clean design with a l
 ## Installation
 1. Clone the repository:
    ```bash
-   ghttps://github.com/marekbrzostowicz/SCHOOL-MANAGEMENT-SYSTEM
+   https://github.com/marekbrzostowicz/SCHOOL-MANAGEMENT-SYSTEM
 
 2. Create a virtual environment:
    ```bash
