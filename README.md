@@ -52,3 +52,17 @@ The interface is responsive and user-friendly, featuring a clean design with a l
 1. Clone the repository:
    ```bash
    git clone https://github.com/marekbrzostowicz/CLASS-MASTER.git
+
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Linux/Mac
+   venv\Scripts\activate     # Windows
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+4. Run the application
+```bash
+python app/__init__.py
+
+   
