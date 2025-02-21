@@ -3,13 +3,13 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import os
 
-font_path = os.path.join(os.path.dirname(__file__), '..', '..', 'static', 'fonts', 'Helvetica.ttf')
-font_path_bold = os.path.join(os.path.dirname(__file__), '..', '..', 'static', 'fonts', 'Helvetica-Bold.ttf')
+font_path = os.path.join(os.path.dirname(__file__), '..', '..', 'static', 'fonts', 'OpenSans-Regular.ttf')
+font_path_bold = os.path.join(os.path.dirname(__file__), '..', '..', 'static', 'fonts', 'OpenSans-Bold.ttf')
 
-pdfmetrics.registerFont(TTFont('HelveticaTTF', font_path))
-pdfmetrics.registerFont(TTFont('HelveticaTTFBold', font_path_bold))
+pdfmetrics.registerFont(TTFont('OpenSans-Regular', font_path))
+pdfmetrics.registerFont(TTFont('OpenSans-Bold', font_path_bold))
 
-def draw_wrapped_text(canvas, text, x, y, max_width, font_name="HelveticaTTF", font_size=12):
+def draw_wrapped_text(canvas, text, x, y, max_width, font_name="OpenSans-Regular", font_size=12):
     canvas.setFont(font_name, font_size)
     words = text.split()
     line = ""
@@ -32,8 +32,8 @@ def create_pdf(title, data_dict, output_filename="generated_test.pdf"):
     width, height = c._pagesize
     name = "Imię i nazwisko: ____________________"
     date = 'Data: __________'
-    font_name = "HelveticaTTF"
-    font_name_bold = "HelveticaTTFBold"
+    font_name = "OpenSans-Regular"
+    font_name_bold = "OpenSans-Bold"
     
     max_points = 0
 

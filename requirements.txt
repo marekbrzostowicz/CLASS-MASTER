@@ -1,0 +1,10 @@
+Flask
+Flask-Login
+Flask-SQLAlchemy
+Werkzeug
+SQLAlchemy
+matplotlib
+pandas
+openpyxl
+reportlab
+python-magic

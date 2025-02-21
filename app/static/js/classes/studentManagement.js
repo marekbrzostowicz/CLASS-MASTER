@@ -31,7 +31,6 @@ export async function fetchClassName(classId) {
 
 //Dodawanie studenta
 export async function addStudent(classId, firstName, lastName, email) {
-  console.log("Class ID being sent:", classId);
   try {
     const response = await fetch("/api/students", {
       method: "POST",
@@ -48,7 +47,6 @@ export async function addStudent(classId, firstName, lastName, email) {
       throw new Error(errorData.error || "Failed to add student");
     }
     const result = await response.json();
-    console.log("Student added successfully:", result);
     setTimeout(() => {
       showStudents(classId);
     }, 500);
@@ -68,19 +66,15 @@ export function createStudentForm() {
   const emailInput = document.getElementById("student-email");
   const fileInput = document.getElementById("student-file-upload");
 
-  // Jeśli popup jest już otwarty, nie dodawaj nowych event listenerów
   if (studentPopup.style.display === "block") return;
 
-  // Otwórz popup
   studentPopup.style.display = "block";
 
-  // Usuń poprzednie event listenery (jeśli istnieją)
   addStudentBtn.removeEventListener("click", handleStudentAdd);
   studentClose.removeEventListener("click", closeStudentPopup);
   window.removeEventListener("click", closeStudentPopupOutside);
   fileInput.removeEventListener("change", handleFileUpload);
 
-  // Dodaj event listenery
   addStudentBtn.addEventListener("click", handleStudentAdd, { once: true });
   studentClose.addEventListener("click", closeStudentPopup, { once: true });
   window.addEventListener("click", closeStudentPopupOutside, { once: true });
@@ -149,7 +143,6 @@ export function createStudentForm() {
 }
 
 export async function showStudents(classId) {
-  console.log("Fetching students for class ID:", classId);
   const counter = document.getElementById("student-counter");
   document.getElementById("table-average");
   try {
@@ -161,8 +154,6 @@ export async function showStudents(classId) {
       throw new Error(`Error: ${response.statusText}`);
     }
     const students = await response.json();
-    console.log("Fetched:", students);
-
     // if(!students){
     //   table.classList.add('table-style-display-none')
     //   console.log('KLASA DODANE')
@@ -185,18 +176,15 @@ export async function showStudents(classId) {
     // );
 
     if (students.length === 0) {
-      console.log("No students found for this class.");
       studentContainer.textContent = "Brak uczniów w tej klasie.";
       return;
     }
-
-    console.log(`Displaying ${students.length} students`);
 
     const table = document.createElement("table");
     const trTitle = document.createElement("tr");
 
     const thIndex = document.createElement("th");
-    thIndex.textContent = "ID"; // lub "Lp."
+    thIndex.textContent = "ID"; 
     const thName = document.createElement("th");
     thName.textContent = "NAME";
     const thSecondName = document.createElement("th");
@@ -210,7 +198,6 @@ export async function showStudents(classId) {
     trTitle.appendChild(thEmail);
     table.appendChild(trTitle);
 
-    // W funkcji showStudents zmień fragment tworzący komórki z imieniem i nazwiskiem:
     students.forEach((student, index) => {
       const trStudentData = document.createElement("tr");
       trStudentData.dataset.studentId = student.id;
@@ -224,27 +211,24 @@ export async function showStudents(classId) {
         counter.textContent = `${index + 1} STUDENTS`;
       }
 
-      // IMIONA
       const tdName = document.createElement("td");
       tdName.textContent = student.first_name;
       tdName.addEventListener("contextmenu", (e) =>
         handleStudentContextMenu(e, student.id)
-      ); // TUTAJ ZMIANA
+      );
 
-      // NAZWISKA
-      const tdSecondName = document.createElement("td"); // POPRAWA LITERÓWKI
+      const tdSecondName = document.createElement("td");
       tdSecondName.textContent = student.last_name;
       tdSecondName.addEventListener("contextmenu", (e) =>
         handleStudentContextMenu(e, student.id)
-      ); // TUTAJ ZMIANA
+      );
 
-      // EMAIL
       const tdEmail = document.createElement("td");
       tdEmail.textContent = student.email;
 
       trStudentData.appendChild(tdIndex);
       trStudentData.appendChild(tdName);
-      trStudentData.appendChild(tdSecondName); // POPRAWA LITERÓWKI
+      trStudentData.appendChild(tdSecondName);
       trStudentData.appendChild(tdEmail);
 
       table.appendChild(trStudentData);
@@ -256,7 +240,7 @@ export async function showStudents(classId) {
 
       th.textContent = column.column_name;
       th.dataset.columnId = column.id;
-      console.log("Dodano kolumnę:", th); // Debug
+
       th.classList.add("column");
 
       th.addEventListener("click", () => {
@@ -284,7 +268,6 @@ export async function showStudents(classId) {
     }
 
     const columnIndexMap = {};
-    console.log(`+++++++++++++++++ ${filteredColumns.length}`);
 
     for (let c = 4; c < 4 + filteredColumns.length + 1; c++) {
       const cell = trTitle.cells[c];
@@ -304,7 +287,6 @@ export async function showStudents(classId) {
       }
     }
 
-    // Zapisujemy w window
     window.columnIndexMap = columnIndexMap;
     console.log(`===KOLUMNY=== ${JSON.stringify(columnIndexMap, null, 10)}`);
 
@@ -321,16 +303,13 @@ export async function showStudents(classId) {
 function handleStudentContextMenu(event, studentId) {
   event.preventDefault();
 
-  // Pobierz imię i nazwisko studenta z klikniętej komórki
   const studentRow = event.target.closest("tr");
   const firstName = studentRow.children[1].textContent;
   const lastName = studentRow.children[2].textContent;
 
-  // Usuń istniejące menu jeśli jest
   const existingMenu = document.querySelector(".student-context-menu");
   if (existingMenu) existingMenu.remove();
 
-  // Utwórz nowe menu
   const menu = document.createElement("div");
   menu.className = "student-context-menu";
   menu.style.position = "absolute";
@@ -343,7 +322,6 @@ function handleStudentContextMenu(event, studentId) {
   menu.style.padding = "10px";
   menu.style.borderRadius = "8px";
 
-  // Nagłówek z imieniem i nazwiskiem
   const title = document.createElement("div");
   title.textContent = `${firstName} ${lastName}`;
   title.style.fontWeight = "bold";
@@ -352,9 +330,8 @@ function handleStudentContextMenu(event, studentId) {
   title.style.marginBottom = "5px";
   title.style.textAlign = "center";
 
-  // Opcja wykresu
   const chartOption = document.createElement("div");
-  chartOption.textContent = "Wykres";
+  chartOption.textContent = "Chart";
   chartOption.style.padding = "8px 16px";
   chartOption.style.cursor = "pointer";
   chartOption.style.textAlign = "center";
@@ -363,9 +340,8 @@ function handleStudentContextMenu(event, studentId) {
     menu.remove();
   });
 
-  // Opcja usuwania
   const deleteOption = document.createElement("div");
-  deleteOption.textContent = "Usuń";
+  deleteOption.textContent = "Delete";
   deleteOption.style.padding = "8px 16px";
   deleteOption.style.cursor = "pointer";
   deleteOption.style.backgroundColor = "#e74c3c";

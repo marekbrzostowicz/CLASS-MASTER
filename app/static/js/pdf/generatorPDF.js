@@ -17,7 +17,7 @@ function reset() {
 function questions() {
   const questionsWrapper = document.getElementById("all-questions");
   if (questionsWrapper.children.length > 0) {
-    alert("Pytania już istnieją! Zresetuj formularz, aby dodać nowe.");
+    alert("Questions already exist! Reset the form to add new ones.");
     return;
   }
 
@@ -34,19 +34,19 @@ function createQuestionElement(index) {
   questionDiv.dataset.id = idCounter++;
 
   questionDiv.innerHTML = `
-    <h2 class="question-title">PYTANIE ${index + 1}</h2>
-    <input type="text" placeholder="Wpisz pytanie" id="question-text" autocomplete="off">
+    <h2 class="question-title">QUESTION ${index + 1}</h2>
+    <input type="text" placeholder="Enter question" id="question-text" autocomplete="off">
     <div id="points-div">
-      <h3>LICZBA PUNKTÓW</h3>
+      <h3>NUMBER OF POINTS</h3>
       <input type="number" id="points-input" min="1">
     </div>
-    <h3>TYP</h3>
+    <h3>TYPE</h3>
     <div id="type-div">
-      <button class="type-button" onclick="addOpenQuestion(this.parentNode.parentNode)">Pytanie otwarte</button>
+      <button class="type-button" onclick="addOpenQuestion(this.parentNode.parentNode)">Open question</button>
       <button class="type-button" onclick="addAbcQuestion(this.parentNode.parentNode)">ABC</button>
-      <button class="type-button" onclick="addTrueFalseQuestion(this.parentNode.parentNode)">Prawda/Fałsz</button>
+      <button class="type-button" onclick="addTrueFalseQuestion(this.parentNode.parentNode)">True/False</button>
     </div>
-    <button onclick="deleteQuestion(this.parentNode)" class="delete-button">USUŃ</button>
+    <button onclick="deleteQuestion(this.parentNode)" class="delete-button">DELETE</button>
   `;
   questionsWrapper.appendChild(questionDiv);
 }
@@ -58,7 +58,7 @@ function addOpenQuestion(parentDiv) {
   input.classList.add("lines-number", "type-specific");
   input.type = "number";
   input.min = "1";
-  input.placeholder = "Podaj liczbę linii na odpowiedź";
+  input.placeholder = "Enter number of lines for answer";
   parentDiv.appendChild(input);
 }
 
@@ -68,13 +68,13 @@ function addAbcQuestion(parentDiv) {
   const container = document.createElement("div");
   container.classList.add("type-specific");
   const numberInput = document.createElement("input");
-  numberInput.placeholder = "Podaj liczbę opcji (1-6)";
+  numberInput.placeholder = "Enter number of options (1-6)";
   numberInput.type = "number";
   numberInput.min = "1";
   numberInput.max = "6";
 
   const button = document.createElement("button");
-  button.textContent = "Generuj opcje";
+  button.textContent = "Enter";
   button.onclick = () => generateABCInputs(parentDiv, numberInput.value);
 
   container.append(numberInput, button);
@@ -93,7 +93,7 @@ function clearExistingTypeElements(parentDiv) {
 function generateABCInputs(parentDiv, number) {
   const num = parseInt(number, 10);
   if (isNaN(num) || num < 1 || num > 6) {
-    alert("Liczba opcji musi być między 1 a 6");
+    alert("The number of options must be between 1 and 6");
     return;
   }
 
@@ -106,7 +106,7 @@ function generateABCInputs(parentDiv, number) {
   container.classList.add("abc-container", "type-specific");
   for (let i = 0; i < num; i++) {
     const input = document.createElement("input");
-    input.placeholder = `Opcja ${String.fromCharCode(65 + i)}`;
+    input.placeholder = `Option ${String.fromCharCode(65 + i)}`;
     input.classList.add("abc-input");
     container.appendChild(input);
   }
@@ -116,7 +116,7 @@ function generateABCInputs(parentDiv, number) {
 function validateQuestions() {
   const questionDivs = document.querySelectorAll("#question-div");
   if (questionDivs.length === 0) {
-    alert("Dodaj przynajmniej jedno pytanie.");
+    alert("Add at least one question.");
     return false;
   }
 
@@ -129,21 +129,23 @@ function validateQuestions() {
     const type = questionDiv.dataset.type;
 
     if (!questionText) {
-      alert(`Pytanie ${index + 1}: Treść pytania jest wymagana.`);
+      alert(`Question ${index + 1}: The question text is required.`);
       questionDiv.querySelector("#question-text").classList.add("invalid");
       isValid = false;
     }
 
     if (!points || isNaN(points) || parseInt(points) <= 0) {
       alert(
-        `Pytanie ${index + 1}: Podaj poprawną liczbę punktów (większą od 0).`
+        `Question ${
+          index + 1
+        }: Please enter a valid number of points (greater than 0).`
       );
       questionDiv.querySelector("#points-input").classList.add("invalid");
       isValid = false;
     }
 
     if (!type) {
-      alert(`Pytanie ${index + 1}: Wybierz typ pytania.`);
+      alert(`Question ${index + 1}: Select a question type.`);
       questionDiv.querySelector("#type-div").classList.add("invalid-border");
       isValid = false;
     }
@@ -152,7 +154,9 @@ function validateQuestions() {
       const lines = questionDiv.querySelector(".lines-number")?.value;
       if (!lines || isNaN(lines) || parseInt(lines) <= 0) {
         alert(
-          `Pytanie ${index + 1}: Podaj poprawną liczbę linii (większą od 0).`
+          `Question ${
+            index + 1
+          }: Please enter a valid number of lines (greater than 0).`
         );
         questionDiv.querySelector(".lines-number")?.classList.add("invalid");
         isValid = false;
@@ -160,15 +164,15 @@ function validateQuestions() {
     } else if (type === "a") {
       const abcOptions = questionDiv.querySelectorAll(".abc-input");
       if (abcOptions.length === 0) {
-        alert(`Pytanie ${index + 1}: Wygeneruj opcje odpowiedzi ABC.`);
+        alert(`Question ${index + 1}: Generate ABC answer options.`);
         isValid = false;
       } else {
         abcOptions.forEach((option, optionIndex) => {
           if (!option.value.trim()) {
             alert(
-              `Pytanie ${index + 1}: Opcja ${String.fromCharCode(
+              `Question ${index + 1}: Option ${String.fromCharCode(
                 65 + optionIndex
-              )} w pytaniu ABC jest pusta.`
+              )} in the ABC question is empty.`
             );
             option.classList.add("invalid");
             isValid = false;
@@ -233,7 +237,7 @@ async function sendDataAndDownloadPDF() {
 
   const title = document.getElementById("title-input").value.trim();
   if (!title) {
-    alert("Wpisz tytuł testu.");
+    alert("Enter test title.");
     document.getElementById("title-input").classList.add("invalid");
     return;
   }
@@ -250,15 +254,15 @@ async function sendDataAndDownloadPDF() {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.error || "Błąd serwera");
+      throw new Error(errorData.error || "Server error");
     }
 
     const result = await response.json();
-    alert(result.success); 
-    fetchPDF(); 
+    alert(result.success);
+    fetchPDF();
   } catch (error) {
-    console.error("Błąd generowania PDF:", error);
-    alert(`Wystąpił błąd: ${error.message}`);
+    console.error("Error generating PDF:", error);
+    alert(`An error occurred: ${error.message}`);
   }
 }
 
@@ -269,11 +273,11 @@ async function fetchPDF() {
       headers: { "Content-Type": "application/json" },
     });
 
-    if (!response.ok) throw new Error(`Błąd: ${response.statusText}`);
+    if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 
     const pdfData = await response.json();
     const pdfDiv = document.getElementById("pdf-div");
-    pdfDiv.innerHTML = "<h3>Wygenerowane PDF-y</h3><ul id='pdf-list'></ul>";
+    pdfDiv.innerHTML = "<h3>PDFs</h3><ul id='pdf-list'></ul>";
 
     const pdfList = document.getElementById("pdf-list");
     pdfData.forEach((pdf) => {
@@ -297,13 +301,13 @@ async function fetchPDF() {
       pdfList.appendChild(listItem);
     });
   } catch (error) {
-    console.error("Błąd pobierania listy PDF-ów:", error);
-    alert("Nie udało się pobrać listy PDF-ów.");
+    console.error("Error fetching PDF list:", error);
+    alert("Failed to fetch the PDF list.");
   }
 }
 
 async function deletePDF(filename) {
-  if (!confirm(`Czy na pewno chcesz usunąć ${filename}?`)) return;
+  if (!confirm(`Are you sure you want to delete ${filename}?`)) return;
 
   try {
     const response = await fetch(`/api/delete_pdf/${filename}`, {
@@ -313,13 +317,13 @@ async function deletePDF(filename) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.error || "Błąd serwera");
+      throw new Error(errorData.error || "Server error");
     }
 
     fetchPDF();
   } catch (error) {
-    console.error("Błąd usuwania PDF:", error);
-    alert(`Wystąpił błąd podczas usuwania: ${error.message}`);
+    console.error("Error deleting PDF:", error);
+    alert(`An error occurred while deleting: ${error.message}`);
   }
 }
 
@@ -330,7 +334,7 @@ function deleteQuestion(parentDiv) {
 
 function updateQuestionNumbers() {
   document.querySelectorAll(".question-title").forEach((title, index) => {
-    title.textContent = `PYTANIE ${index + 1}`;
+    title.textContent = `QUESTION ${index + 1}`;
   });
 }
 

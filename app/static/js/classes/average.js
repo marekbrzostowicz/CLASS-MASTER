@@ -3,12 +3,8 @@ import { getClassIdFromUrl } from "./studentManagement.js";
 export async function createTable() {
 
   const counterElement = document.getElementById("student-counter");
-  console.log(counterElement);
-
-
+  
   const table = document.getElementById("table-average");
-  console.log(`dfgdfgdfgdf ${table}`);
-
 
   while (table.rows.length > 1) {
     table.deleteRow(1);
@@ -44,7 +40,7 @@ export async function fetchColumnId(classId) {
     if (data.length == 0) {
       
       table.classList.add("table-style-display-none");
-      console.log("KLASA DODANE");
+      console.log("KLASA DODANA");
     } else {
       table.classList.remove("table-style-display-none")
     }

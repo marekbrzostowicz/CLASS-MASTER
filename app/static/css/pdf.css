@@ -1,3 +1,4 @@
+/* Ogólne style strony */
 body {
   margin: 0;
   padding: 0;
@@ -6,6 +7,7 @@ body {
   overflow: auto;
 }
 
+/* Główny kontener */
 .container-pdf {
   margin-top: 180px;
   display: flex;
@@ -16,6 +18,7 @@ body {
   min-height: calc(100vh - 180px);
 }
 
+/* Sekcja inputów */
 #question-input {
   position: sticky;
   top: 180px;
@@ -28,8 +31,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  height: calc(100vh - 220px);
-  overflow-y: auto;
 }
 
 #question-input p {
@@ -60,7 +61,7 @@ body {
 }
 
 #question-div {
-  width: 48%;
+  width: 45%; /* Dwa pytania w wierszu na większych ekranach */
   background: linear-gradient(to bottom right, #ffffff, #f0f4f8);
   padding: 20px;
   border-radius: 10px;
@@ -174,6 +175,7 @@ body {
   background-color: #b91c1c;
 }
 
+/* Sekcja PDF-ów */
 #pdf-div {
   width: 250px;
   background-color: #efefef;
@@ -224,6 +226,7 @@ body {
   color: #b91c1c;
 }
 
+/* Przyciski akcji */
 #buttons-container {
   display: flex;
   gap: 10px;
@@ -261,6 +264,7 @@ body {
   transform: scale(1.05);
 }
 
+/* Ikona check-circle */
 #question-number {
   font-size: 50px;
   color: #0fcf65;
@@ -273,6 +277,7 @@ body {
   color: #0a9e4b;
 }
 
+/* Navbar */
 #all-elementsss {
   position: fixed;
   top: 0;
@@ -282,7 +287,8 @@ body {
   z-index: 1000;
 }
 
-@media (max-width: 1024px) {
+/* Responsywność */
+@media (max-width: 768px) {
   .container-pdf {
     flex-direction: column;
     padding: 10px;
@@ -291,7 +297,6 @@ body {
   #question-input {
     position: static;
     width: 100%;
-    height: auto;
   }
 
   #all-questions {
@@ -304,12 +309,5 @@ body {
 
   #pdf-div {
     width: 100%;
-    margin-top: 20px;
-  }
-}
-
-@media (min-width: 1025px) {
-  #question-div {
-    width: 48%;
   }
 }

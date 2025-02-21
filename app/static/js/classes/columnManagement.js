@@ -3,7 +3,6 @@ import { showStudents } from "./studentManagement.js";
 import { displayPopupImage } from "./chartManagement.js";
 import { createTable, fetchColumnId } from "./average.js";
 
-
 export async function fetchColumns() {
   console.log("Fetching columns for class ID");
   try {
@@ -80,12 +79,9 @@ export function addContextMenuListeners() {
 
     header.addEventListener("contextmenu", (event) => {
       event.preventDefault();
-      
 
       const columnId = header.dataset.columnId;
       console.log("Kliknięto na kolumnę:", columnId);
-      
-
 
       let contextMenu = document.getElementById("context-menu");
       if (contextMenu) {
@@ -101,39 +97,28 @@ export function addContextMenuListeners() {
       contextMenu.style.display = "block";
       document.body.appendChild(contextMenu);
 
-
       contextMenu.innerHTML = `
-        <p class="context-menu-title">Opcje dla kolumny: ${header.textContent.trim()}</p>
-        <button class="context-menu-btn" id="edit-column">Edytuj</button>
-        <button class="context-menu-btn" id="delete-column">Usuń</button>
-        <button class="context-menu-btn" id="weight">Waga</button>
-        <button class="context-menu-btn" id="chart">Wykres</button>
+        <p class="context-menu-title">Options for column: ${header.textContent.trim()}</p>
+
+        <button class="context-menu-btn" id="delete-column">Delete</button>
+        <button class="context-menu-btn" id="weight">Weight</button>
+        <button class="context-menu-btn" id="chart">Chart</button>
       `;
-
-      document.getElementById("edit-column").onclick = () => {
-        console.log(`Edytowanie kolumny ${columnId}`);
-        contextMenu.style.display = "none";
-      };
-
       document.getElementById("delete-column").onclick = async () => {
         await deleteColum(columnId);
-        await showStudents(getClassIdFromUrl()); 
+        await showStudents(getClassIdFromUrl());
         console.log(`Usuwanie kolumny ${columnId}`);
         contextMenu.style.display = "none";
       };
 
       document.getElementById("weight").onclick = (event) => {
-        console.log("Button 'waga' clicked!");
-
+        console.log("Button WAGA");
 
         let weightMenu = document.getElementById("weight-menu");
         if (weightMenu) {
-          console.log("Removing old weight menu...");
           weightMenu.remove();
         }
 
-
-        console.log("Creating weight menu...");
         weightMenu = document.createElement("div");
         weightMenu.id = "weight-menu";
         weightMenu.classList.add("custom-weight-menu");
@@ -142,13 +127,9 @@ export function addContextMenuListeners() {
         weightMenu.style.top = `${event.clientY}px`;
         weightMenu.style.display = "block";
 
-
         document.body.appendChild(weightMenu);
-        console.log("Weight menu created and added to DOM");
-
 
         weightMenu.addEventListener("click", (e) => e.stopPropagation());
-
 
         weightMenu.innerHTML = `
           <button class="weight-btn" data-weight="1">1</button>
@@ -162,8 +143,6 @@ export function addContextMenuListeners() {
         weightButtons.forEach((button) => {
           button.addEventListener("click", () => {
             const weight = button.dataset.weight;
-            console.log(`Selected weight: ${weight}`);
-
 
             weightMenu.remove();
             contextMenu.remove();
@@ -173,10 +152,8 @@ export function addContextMenuListeners() {
           });
         });
 
-  
         const closeWeightMenu = (event) => {
           if (!weightMenu.contains(event.target)) {
-            console.log("Closing weight menu");
             weightMenu.remove();
             document.removeEventListener("click", closeWeightMenu);
           }
@@ -184,7 +161,6 @@ export function addContextMenuListeners() {
 
         document.addEventListener("click", closeWeightMenu);
 
-  
         event.stopPropagation();
       };
 
@@ -212,7 +188,6 @@ export function addContextMenuListeners() {
         }
       };
 
-
       const closeContextMenu = (event) => {
         if (!contextMenu.contains(event.target)) {
           contextMenu.remove();
@@ -238,8 +213,6 @@ async function deleteColum(columnId) {
     if (!response.ok) {
       throw new Error(`Error: ${response.statusText}`);
     }
-
-    console.log(`Column ${columnId} deleted successfully`);
   } catch (error) {
     console.error("Error deleting column:", error.message);
   }
@@ -266,8 +239,6 @@ async function fetchWeight(weight, columnId) {
   }
 }
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const addGradesColBtn = document.getElementById("add-grades-col-btn");
   const addColumnPopup = document.getElementById("add-column-popup");
@@ -275,12 +246,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const columnInput = document.getElementById("column-input");
   const addColumnBtn = document.getElementById("add-column-btn");
 
-
   addGradesColBtn.addEventListener("click", () => {
     addColumnPopup.style.display = "block";
     columnInput.focus();
   });
-
 
   addColumnClose.addEventListener("click", () => {
     addColumnPopup.style.display = "none";

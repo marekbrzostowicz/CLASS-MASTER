@@ -7,7 +7,6 @@ export function addGradesInputs(index) {
   const table = document.querySelector("table");
   const rows = table.rows;
 
-
   const columnId = rows[0].cells[index].dataset.columnId;
 
   for (let i = 1; i < rows.length; i++) {
@@ -15,11 +14,9 @@ export function addGradesInputs(index) {
     const cell = row.cells[index];
 
     if (cell.firstChild && cell.firstChild.tagName === "INPUT") {
-
       const inputValue = cell.firstChild.value;
       cell.innerHTML = inputValue;
     } else {
-
       const previousValue = cell.textContent.trim();
       cell.innerHTML = "";
       const input = document.createElement("input");
@@ -84,7 +81,6 @@ export async function addGradesToBackend() {
 }
 
 export async function fetchGrades() {
-  console.log("Fetching grades");
   try {
     const response = await fetch("/api/grades", {
       method: "GET",
@@ -106,19 +102,16 @@ export async function fetchGrades() {
 
       const row = studentRowMap[stId];
       if (!row) {
-        console.warn(`No row for studentId=${stId}`);
         return;
       }
 
       const colIndex = columnIndexMap[colId];
       if (colIndex === undefined) {
-        console.warn(`No columnIndex for colId=${colId}`);
         return;
       }
 
       const cell = row.cells[colIndex];
       if (!cell) {
-        console.warn(`No cell at row.cells[${colIndex}]`);
         return;
       }
       // if (gradeVal){
@@ -138,8 +131,6 @@ export async function fetchGrades() {
 
 export function toggleGradeCells() {
   const rows = document.querySelectorAll(".grades-cell");
-
-  console.log(`========================${rows}`);
 
   rows.forEach((row) => {
     const totalCells = row.cells.length;

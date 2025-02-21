@@ -65,9 +65,6 @@ async function sendDataAndDownloadPDF() {
       return;
     }
 
-    console.log("Title sent to Flask:", title);
-    console.log("Data sent to Flask:", transformedData);
-
     const response = await fetch("/api/generate_pdf", {
       method: "POST",
       headers: {

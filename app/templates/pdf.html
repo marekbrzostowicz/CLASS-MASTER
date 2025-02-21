@@ -15,16 +15,16 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <title>Generowanie Testów</title>
+    <title>PDF</title>
   </head>
   <body>
     <div id="all-elementsss">{% include "navbar.html" %}</div>
 
     <div class="container-pdf">
       <div id="question-input">
-        <p>TYTUŁ TESTU</p>
+        <p>TITLE</p>
         <input type="text" placeholder="Wpisz tytuł" id="title-input" />
-        <p>LICZBA PYTAŃ</p>
+        <p>QUESTION NUMBER</p>
         <div id="range-container">
           <input
             type="range"
@@ -46,7 +46,7 @@
             <i class="fas fa-undo class-icon"></i> RESET
           </button>
           <button onclick="sendDataAndDownloadPDF()" id="generate-button">
-            GENERUJ
+            GENERATE
           </button>
         </div>
       </div>
