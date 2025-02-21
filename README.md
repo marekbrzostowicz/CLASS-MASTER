@@ -1,4 +1,4 @@
-# PDF Test Generator
+# SCHOOL MANAGEMENT SYSTEM
 
 ## Description
 
@@ -51,7 +51,7 @@ The interface is responsive and user-friendly, featuring a clean design with a l
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/marekbrzostowicz/CLASS-MASTER.git
+   ghttps://github.com/marekbrzostowicz/SCHOOL-MANAGEMENT-SYSTEM
 
 2. Create a virtual environment:
    ```bash
@@ -62,7 +62,5 @@ The interface is responsive and user-friendly, featuring a clean design with a l
    ```bash
    pip install -r requirements.txt
 4. Run the application
-```bash
-python app/__init__.py
-
-   
+   ```bash
+   python app/__init__.py
