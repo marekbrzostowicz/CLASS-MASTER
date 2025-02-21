@@ -58,6 +58,7 @@ The interface is responsive and user-friendly, featuring a clean design with a l
    python -m venv venv
    source venv/bin/activate  # Linux/Mac
    venv\Scripts\activate     # Windows
+   cd SCHOOL-MANAGEMENT-SYSTEM
 3. Install dependencies:
    ```bash
    pip install -r requirements.txt
