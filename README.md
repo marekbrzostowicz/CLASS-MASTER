@@ -12,20 +12,37 @@ The interface is responsive and user-friendly, featuring a clean design with a l
 
 ## Screenshot
 
-Adding class
-![image](https://github.com/user-attachments/assets/3dbc92a5-04a2-4a12-a977-fbe6e0bdec93)
-Delete or change class parameters
-![image](https://github.com/user-attachments/assets/c15f131e-1f8d-42be-b1d2-0a38de51702f)
-Adding student
-![image](https://github.com/user-attachments/assets/d696f430-afc1-4171-aac7-d0e0840a5761)
-Entering grades
-![image](https://github.com/user-attachments/assets/9c6ec729-96e5-4f54-ae47-fe85e708e42a)
-Options for columns
-![image](https://github.com/user-attachments/assets/7544d276-7ee1-402c-a210-95b90b4e843c)
-Charts can be generated for individual students or columns
-![image](https://github.com/user-attachments/assets/ddc50335-6dec-48e6-b230-5294317231f2)
-Searching students
-![image](https://github.com/user-attachments/assets/759e1e46-e704-4f5d-ba33-ca7f4784daf2)
-Generating pdf
-![image](https://github.com/user-attachments/assets/205e05b4-9cbb-490d-a85d-388d54e1c47d)
-![image](https://github.com/user-attachments/assets/82360f60-1cef-4ace-a480-94e0137c5135)
+### Adding class  
+
+![image](https://github.com/user-attachments/assets/3dbc92a5-04a2-4a12-a977-fbe6e0bdec93)  
+
+### elete or change class parameters  
+
+![image](https://github.com/user-attachments/assets/c15f131e-1f8d-42be-b1d2-0a38de51702f)  
+
+### Adding student  
+
+![image](https://github.com/user-attachments/assets/d696f430-afc1-4171-aac7-d0e0840a5761)  
+
+### Entering grades  
+
+![image](https://github.com/user-attachments/assets/9c6ec729-96e5-4f54-ae47-fe85e708e42a)  
+
+### Options for columns  
+
+![image](https://github.com/user-attachments/assets/7544d276-7ee1-402c-a210-95b90b4e843c)  
+
+### Charts can be generated for individual students or columns  
+
+![image](https://github.com/user-attachments/assets/ddc50335-6dec-48e6-b230-5294317231f2)  
+
+### Searching students  
+
+![image](https://github.com/user-attachments/assets/759e1e46-e704-4f5d-ba33-ca7f4784daf2)  
+
+### Generating pdf  
+
+![image](https://github.com/user-attachments/assets/205e05b4-9cbb-490d-a85d-388d54e1c47d)  
+
+![image](https://github.com/user-attachments/assets/82360f60-1cef-4ace-a480-94e0137c5135)  
+
