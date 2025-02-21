@@ -64,4 +64,4 @@ The interface is responsive and user-friendly, featuring a clean design with a l
    pip install -r requirements.txt
 4. Run the application
    ```bash
-   python app/__init__.py
+   python run.py
